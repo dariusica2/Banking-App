@@ -1,17 +1,13 @@
 package org.poo.bank;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import org.poo.bank.commands.AddAccount;
-import org.poo.bank.commands.AddFunds;
-import org.poo.bank.commands.CreateCard;
-import org.poo.bank.commands.PrintUsers;
+import org.poo.bank.commands.*;
 import org.poo.fileio.CommandInput;
 import org.poo.fileio.UserInput;
+import org.poo.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 public class BankDataBase {
     private LinkedHashMap<String, User> userMap;
@@ -68,6 +64,9 @@ public class BankDataBase {
                     break;
                 case "addFunds":
                     AddFunds.execute(accountMap, account, amount, timestamp);
+                    break;
+                case "deleteAccount":
+                    DeleteAccount.execute(userMap, accountMap, email, account, timestamp, output);
                     break;
             }
         }
