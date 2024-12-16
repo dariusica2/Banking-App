@@ -7,6 +7,7 @@ import org.poo.bank.BankDataBase;
 import org.poo.checker.Checker;
 import org.poo.checker.CheckerConstants;
 import org.poo.fileio.CommandInput;
+import org.poo.fileio.ExchangeInput;
 import org.poo.fileio.ObjectInput;
 import org.poo.fileio.UserInput;
 import org.poo.utils.Utils;
@@ -81,6 +82,7 @@ public final class Main {
         // Implementation starts here
         // Getting the necessary information from the input file
         UserInput[] userInputs = inputData.getUsers();
+        ExchangeInput[] exchangeRates = inputData.getExchangeRates();
         CommandInput[] commandInputs = inputData.getCommands();
 
         // Creating instance of the Data Base
@@ -88,6 +90,8 @@ public final class Main {
 
         // Initializing the users from the input file
         dataBase.addUsers(userInputs);
+        // Adding exchange rates from the input file
+        dataBase.addExchangeRates(exchangeRates);
         // Reading and executing the commands from the input file
         dataBase.interpretCommands(commandInputs, output);
 

@@ -24,4 +24,8 @@ public class Account {
         balance += amount;
     }
 
+    public void decreaseBalance(double amount) {
+        balance -= amount;
+    }
+
 }
