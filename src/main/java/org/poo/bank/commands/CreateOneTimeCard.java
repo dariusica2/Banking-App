@@ -9,11 +9,11 @@ import org.poo.utils.Utils;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class CreateCard {
+public class CreateOneTimeCard {
     /**
      * Utility class requirement
      */
-    private CreateCard() {
+    private CreateOneTimeCard() {
     }
 
     public static void execute(BankDataBase bankDataBase,

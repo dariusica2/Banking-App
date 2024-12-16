@@ -83,11 +83,15 @@ public final class Main {
         UserInput[] userInputs = inputData.getUsers();
         CommandInput[] commandInputs = inputData.getCommands();
 
+        // Creating instance of the Data Base
         BankDataBase dataBase = new BankDataBase();
 
+        // Initializing the users from the input file
         dataBase.addUsers(userInputs);
+        // Reading and executing the commands from the input file
         dataBase.interpretCommands(commandInputs, output);
 
+        // Resetting random seed
         Utils.resetRandom();
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();

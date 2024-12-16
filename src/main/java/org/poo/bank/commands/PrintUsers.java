@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.Account;
+import org.poo.bank.BankDataBase;
 import org.poo.bank.Card;
 import org.poo.bank.User;
 
@@ -17,7 +18,9 @@ public class PrintUsers {
     private PrintUsers() {
     }
 
-    public static void execute(LinkedHashMap<String, User> userMap, int timestamp, ArrayNode output) {
+    public static void execute(BankDataBase bankDataBase, int timestamp, ArrayNode output) {
+        LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
+
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode menuNode = mapper.createObjectNode();

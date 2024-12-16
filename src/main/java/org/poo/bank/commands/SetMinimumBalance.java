@@ -2,21 +2,18 @@ package org.poo.bank.commands;
 
 import org.poo.bank.Account;
 import org.poo.bank.BankDataBase;
-import org.poo.bank.User;
-import org.poo.utils.Utils;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
-public class AddFunds {
+public class SetMinimumBalance {
     /**
      * Utility class requirement
      */
-    private AddFunds() {
+    private SetMinimumBalance() {
     }
 
     public static void execute(BankDataBase bankDataBase,
-                               String account, double amount,
+                               double amount, String account,
                                int timestamp) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
@@ -27,6 +24,6 @@ public class AddFunds {
         }
 
         // Increase moneys
-        selectedAccount.increaseBalance(amount);
+        selectedAccount.setMinBalance(amount);
     }
 }

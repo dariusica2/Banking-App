@@ -10,6 +10,7 @@ public class Account {
     private double balance;
     private String currency;
     private String accountType;
+    private double minBalance;
     private ArrayList<Card> cards;
 
     public Account(String iban, String currency, String accountType) {
