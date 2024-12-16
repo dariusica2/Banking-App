@@ -3,9 +3,12 @@ package org.poo.main;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import org.poo.bank.BankDataBase;
 import org.poo.checker.Checker;
 import org.poo.checker.CheckerConstants;
+import org.poo.fileio.CommandInput;
 import org.poo.fileio.ObjectInput;
+import org.poo.fileio.UserInput;
 
 import java.io.File;
 import java.io.IOException;
@@ -92,6 +95,16 @@ public final class Main {
          * output.add(objectNode);
          *
          */
+
+        // Implementation starts here
+        // Getting the necessary information from the input file
+        UserInput[] userInputs = inputData.getUsers();
+        CommandInput[] commandInputs = inputData.getCommands();
+
+        BankDataBase dataBase = new BankDataBase();
+
+        dataBase.addUsers(userInputs);
+        dataBase.interpretCommands(commandInputs, output);
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), output);
