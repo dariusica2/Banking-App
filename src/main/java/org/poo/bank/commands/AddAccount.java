@@ -2,6 +2,7 @@ package org.poo.bank.commands;
 
 import org.poo.bank.Account;
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Transaction;
 import org.poo.bank.User;
 
 import org.poo.utils.Utils;
@@ -30,11 +31,15 @@ public class AddAccount {
 
         // Creating new account
         String iban = Utils.generateIBAN();
-        Account createdAccount = new Account(iban, currency, accountType);
+        Account createdAccount = new Account(iban, currency, accountType, selectedUser);
 
         // Adding created account in the user's account list
         selectedUser.getAccounts().add(createdAccount);
         // Mapping the account to its IBAN
         accountMap.put(iban, createdAccount);
+
+        // Adding specific transaction
+        Transaction transaction = new Transaction.Builder(1, timestamp, "New account created").build();
+        selectedUser.getTransactions().add(transaction);
     }
 }

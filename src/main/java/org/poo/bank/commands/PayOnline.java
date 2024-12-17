@@ -1,9 +1,9 @@
 package org.poo.bank.commands;
 
-import org.poo.bank.Account;
-import org.poo.bank.BankDataBase;
-import org.poo.bank.Card;
-import org.poo.bank.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.poo.bank.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,9 +20,8 @@ public class PayOnline {
     public static void execute(BankDataBase bankDataBase,
                                String cardNumber, double amount, String currency,
                                int timestamp,
-                               String description, String commerciant, String email) {
+                               String description, String commerciant, String email, ArrayNode output) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
-        HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
         HashMap<String, HashMap<String, Double>> exchangeRateMap = bankDataBase.getExchangeRateMap();
 
@@ -35,29 +34,47 @@ public class PayOnline {
         // Checking if card exists
         Card selectedCard = cardMap.get(cardNumber);
         if (selectedCard == null) {
+            // Writing to output
+            ObjectMapper mapper = new ObjectMapper();
+
+            ObjectNode menuNode = mapper.createObjectNode();
+            menuNode.put("command", "payOnline");
+
+            ObjectNode outputNode = mapper.createObjectNode();
+            outputNode.put("timestamp", timestamp);
+            outputNode.put("description", "Card not found");
+            menuNode.set("output", outputNode);
+            menuNode.put("timestamp", timestamp);
+
+            output.add(menuNode);
             return;
         }
 
         // Finding the account with the selected card
-        Account selectedAccount = null;
-        for (Map.Entry<String, Account> mapElement : accountMap.entrySet()) {
-            selectedAccount = mapElement.getValue();
-            ArrayList<Card> selectedCardList = selectedAccount.getCards();
-            if (selectedCardList.contains(selectedCard))
-                break;
-        }
+        Account selectedAccount = selectedCard.getParentAccount();
+        double decreaseAmount;
 
         // Determining if change of currency is needed
-        if (selectedAccount == null) {
+        String accountCurrency = selectedAccount.getCurrency();
+        if (!accountCurrency.equals(currency)) {
+            double rate = exchangeRateMap.get(currency).get(accountCurrency);
+            decreaseAmount = rate * amount;
+        } else {
+            decreaseAmount = amount;
+        }
+
+        // If balance would go below zero
+        if (decreaseAmount > selectedAccount.getBalance()) {
             return;
         }
-        String accountCurrency = selectedAccount.getCurrency();
-        if (accountCurrency.equals(currency)) {
-            selectedAccount.decreaseBalance(amount);
-        } else {
-            double rate = exchangeRateMap.get(accountCurrency).get(currency);
-            double convertedAmount = rate * amount;
-            selectedAccount.decreaseBalance(convertedAmount);
-        }
+
+        // Decreasing moneys
+        selectedAccount.decreaseBalance(decreaseAmount);
+
+        Transaction transaction = new Transaction.Builder(4, timestamp, "Card payment")
+                .putAmount(amount)
+                .putCommerciant(commerciant).build();
+
+        selectedUser.getTransactions().add(transaction);
     }
 }

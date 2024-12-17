@@ -1,9 +1,6 @@
 package org.poo.bank.commands;
 
-import org.poo.bank.Account;
-import org.poo.bank.BankDataBase;
-import org.poo.bank.Card;
-import org.poo.bank.User;
+import org.poo.bank.*;
 import org.poo.utils.Utils;
 
 import java.util.HashMap;
@@ -37,10 +34,19 @@ public class CreateOneTimeCard {
 
         // Creating new card
         String cardNumber = Utils.generateCardNumber();
-        Card createdCard = new Card(cardNumber);
+        Card createdCard = new Card(cardNumber, selectedAccount);
+
         // Mapping card to its card Number
         cardMap.put(cardNumber, createdCard);
         // Adding created card in the user's card list
         selectedAccount.getCards().add(createdCard);
+
+        String userEmail = selectedUser.getEmail();
+        // Adding specific transaction
+        Transaction transaction = new Transaction.Builder(2, timestamp, "New card created")
+                .putCard(cardNumber)
+                .putCardHolder(userEmail)
+                .putAccount(account).build();
+        selectedUser.getTransactions().add(transaction);
     }
 }

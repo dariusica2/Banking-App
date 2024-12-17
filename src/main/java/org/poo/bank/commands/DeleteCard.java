@@ -3,10 +3,7 @@ package org.poo.bank.commands;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.poo.bank.Account;
-import org.poo.bank.BankDataBase;
-import org.poo.bank.Card;
-import org.poo.bank.User;
+import org.poo.bank.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +21,6 @@ public class DeleteCard {
     public static void execute(BankDataBase bankDataBase,
                                String cardNumber,
                                int timestamp) {
-        HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
 
         // Checking if card exists
@@ -37,11 +33,18 @@ public class DeleteCard {
         cardMap.remove(cardNumber);
 
         // Removing from user's card list
-        for (Map.Entry<String, Account> mapElement : accountMap.entrySet()) {
-            Account selectedAccount = mapElement.getValue();
-            ArrayList<Card> selectedCardList = selectedAccount.getCards();
-            if (selectedCardList.remove(selectedCard))
-                break;
-        }
+        Account parentAccount = selectedCard.getParentAccount();
+        parentAccount.getCards().remove(selectedCard);
+
+        User selectedUser = parentAccount.getParentUser();
+
+        String userEmail = selectedUser.getEmail();
+        String userAccount = parentAccount.getIban();
+        // Adding specific transaction
+        Transaction transaction = new Transaction.Builder(3, timestamp, "New card created")
+                .putCard(cardNumber)
+                .putCardHolder(userEmail)
+                .putAccount(userAccount).build();
+        selectedUser.getTransactions().add(transaction);
     }
 }

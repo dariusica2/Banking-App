@@ -39,7 +39,7 @@ public class DeleteAccount {
         }
 
         // Checking requirement
-        if (selectedAccount.getBalance() > 0) {
+        if (selectedAccount.getBalance() != 0) {
             return;
         }
 
@@ -50,6 +50,7 @@ public class DeleteAccount {
         }
         // Remove account from HashMap
         accountMap.remove(account);
+
         // Remove account from user's account list
         selectedUser.getAccounts().remove(selectedAccount);
 

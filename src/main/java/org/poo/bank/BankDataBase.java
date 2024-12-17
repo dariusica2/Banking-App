@@ -34,6 +34,7 @@ public class BankDataBase {
     }
 
     public void addExchangeRates(ExchangeInput[] exchangeRates) {
+        // Going through already provided exchange rates
         for (ExchangeInput exchangeRate : exchangeRates) {
             String from = exchangeRate.getFrom();
             String to = exchangeRate.getTo();
@@ -46,6 +47,7 @@ public class BankDataBase {
             exchangeRateMap.get(to).put(from, 1.0 / rate);
         }
 
+        // Calculating intermediate exchange rates using an algorithm similar to Floyd-Warshall
         for (String middle : exchangeRateMap.keySet()) {
             for (String from : exchangeRateMap.keySet()) {
                 for (String to : exchangeRateMap.keySet()) {
@@ -78,6 +80,8 @@ public class BankDataBase {
             // payOnline
             String description = commandInput.getDescription();
             String commerciant = commandInput.getCommerciant();
+            // sendMoney
+            String receiver = commandInput.getReceiver();
 
             int timestamp = commandInput.getTimestamp();
 
@@ -85,7 +89,6 @@ public class BankDataBase {
 //            private String target;
 //            private int startTimestamp;
 //            private int endTimestamp;
-//            private String receiver;
 //            private String alias;
 //            private double interestRate;
 //            private List<String> accounts;
@@ -116,7 +119,13 @@ public class BankDataBase {
                     SetMinimumBalance.execute(this, amount, account, timestamp);
                     break;
                 case "payOnline":
-                    PayOnline.execute(this, cardNumber, amount, currency, timestamp, description, commerciant, email);
+                    PayOnline.execute(this, cardNumber, amount, currency, timestamp, description, commerciant, email, output);
+                    break;
+                case "sendMoney":
+                    SendMoney.execute(this, account, amount, receiver, timestamp, description);
+                    break;
+                case "printTransactions":
+                    PrintTransactions.execute(this, email, timestamp, output);
                     break;
             }
         }
