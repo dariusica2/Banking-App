@@ -1,5 +1,9 @@
 package org.poo.bank;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 public class Output {
     /**
      * Utility class requirement
@@ -17,5 +21,20 @@ public class Output {
 
     public static void printCards() {
 
+    }
+
+    public static void cardNotFound(int timestamp, ArrayNode output) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode menuNode = mapper.createObjectNode();
+        menuNode.put("command", "checkCardStatus");
+
+        ObjectNode outputNode = mapper.createObjectNode();
+        outputNode.put("description", "Card not found");
+        outputNode.put("timestamp", timestamp);
+        menuNode.set("output", outputNode);
+        menuNode.put("timestamp", timestamp);
+
+        output.add(menuNode);
     }
 }

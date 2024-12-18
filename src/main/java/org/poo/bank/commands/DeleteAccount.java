@@ -29,17 +29,53 @@ public class DeleteAccount {
         // Checking if user exists
         User selectedUser = userMap.get(email);
         if (selectedUser == null) {
+            ObjectMapper mapper = new ObjectMapper();
+
+            ObjectNode menuNode = mapper.createObjectNode();
+            menuNode.put("command", "deleteAccount");
+
+            ObjectNode outputNode = mapper.createObjectNode();
+            outputNode.put("error", "Account couldn't be deleted - see org.poo.transactions for details");
+            outputNode.put("timestamp", timestamp);
+            menuNode.set("output", outputNode);
+            menuNode.put("timestamp", timestamp);
+
+            output.add(menuNode);
             return;
         }
 
         // Checking if account exists
         Account selectedAccount = accountMap.get(account);
         if (selectedAccount == null) {
+            ObjectMapper mapper = new ObjectMapper();
+
+            ObjectNode menuNode = mapper.createObjectNode();
+            menuNode.put("command", "deleteAccount");
+
+            ObjectNode outputNode = mapper.createObjectNode();
+            outputNode.put("error", "Account couldn't be deleted - see org.poo.transactions for details");
+            outputNode.put("timestamp", timestamp);
+            menuNode.set("output", outputNode);
+            menuNode.put("timestamp", timestamp);
+
+            output.add(menuNode);
             return;
         }
 
         // Checking requirement
         if (selectedAccount.getBalance() != 0) {
+            ObjectMapper mapper = new ObjectMapper();
+
+            ObjectNode menuNode = mapper.createObjectNode();
+            menuNode.put("command", "deleteAccount");
+
+            ObjectNode outputNode = mapper.createObjectNode();
+            outputNode.put("error", "Account couldn't be deleted - see org.poo.transactions for details");
+            outputNode.put("timestamp", timestamp);
+            menuNode.set("output", outputNode);
+            menuNode.put("timestamp", timestamp);
+
+            output.add(menuNode);
             return;
         }
 

@@ -3,6 +3,7 @@ package org.poo.bank;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class Transaction {
@@ -24,7 +25,7 @@ public class Transaction {
     private String transferType;
     // Fields for splitPayment
     private String currency;
-    private ArrayList<String> involvedAccounts;
+    private List<String> involvedAccounts;
     private String error;
 
     public static class Builder {
@@ -46,7 +47,7 @@ public class Transaction {
         private String transferType;
         // Fields for splitPayment
         private String currency;
-        private ArrayList<String> involvedAccounts;
+        private List<String> involvedAccounts;
         private String error;
 
         public Builder(int transactionType, int timestamp, String description) {
@@ -105,7 +106,7 @@ public class Transaction {
             return this;
         }
 
-        public Builder putInvolvedAccounts(ArrayList<String> involvedAccounts) {
+        public Builder putInvolvedAccounts(List<String> involvedAccounts) {
             this.involvedAccounts = involvedAccounts;
             return this;
         }

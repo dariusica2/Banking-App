@@ -36,8 +36,13 @@ public class SendMoney {
             return;
         }
 
+        User senderUser = senderAccount.getParentUser();
+        User receiverUser = receiverAccount.getParentUser();
+
         // If balance would below zero
         if (amount > senderAccount.getBalance()) {
+            Transaction transaction = new Transaction.Builder(1, timestamp, "Insufficient funds").build();
+            senderUser.getTransactions().add(transaction);
             return;
         }
 
@@ -61,7 +66,6 @@ public class SendMoney {
                                             .putReceiverIBAN(receiver)
                                             .putAmountCurrency(senderAmountCurrency)
                                             .putTransferType("sent").build();
-        User senderUser = senderAccount.getParentUser();
         senderUser.getTransactions().add(senderTransaction);
 
         String receiverAmountCurrency = receivedAmount + " " + receiverCurrency;
@@ -70,7 +74,6 @@ public class SendMoney {
                                               .putReceiverIBAN(receiver)
                                               .putAmountCurrency(receiverAmountCurrency)
                                               .putTransferType("received").build();
-        User receiverUser = receiverAccount.getParentUser();
         receiverUser.getTransactions().add(receiverTransaction);
     }
 }

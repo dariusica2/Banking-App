@@ -2,11 +2,8 @@ package org.poo.bank.commands;
 
 import org.poo.bank.Account;
 import org.poo.bank.BankDataBase;
-import org.poo.bank.User;
-import org.poo.utils.Utils;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 public class AddFunds {
     /**

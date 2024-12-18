@@ -41,7 +41,7 @@ public class DeleteCard {
         String userEmail = selectedUser.getEmail();
         String userAccount = parentAccount.getIban();
         // Adding specific transaction
-        Transaction transaction = new Transaction.Builder(3, timestamp, "New card created")
+        Transaction transaction = new Transaction.Builder(3, timestamp, "The card has been destroyed")
                 .putCard(cardNumber)
                 .putCardHolder(userEmail)
                 .putAccount(userAccount).build();

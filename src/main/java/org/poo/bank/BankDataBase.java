@@ -9,8 +9,10 @@ import org.poo.fileio.CommandInput;
 import org.poo.fileio.ExchangeInput;
 import org.poo.fileio.UserInput;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 @Data
 public class BankDataBase {
@@ -82,16 +84,18 @@ public class BankDataBase {
             String commerciant = commandInput.getCommerciant();
             // sendMoney
             String receiver = commandInput.getReceiver();
+            // splitPayment
+            List<String> accounts = commandInput.getAccounts();
+            // report
+            int startTimestamp = commandInput.getStartTimestamp();
+            int endTimestamp = commandInput.getEndTimestamp();
 
             int timestamp = commandInput.getTimestamp();
 
 //            private double minBalance;
 //            private String target;
-//            private int startTimestamp;
-//            private int endTimestamp;
 //            private String alias;
 //            private double interestRate;
-//            private List<String> accounts;
 
             switch (command) {
                 case "printUsers":
@@ -126,6 +130,15 @@ public class BankDataBase {
                     break;
                 case "printTransactions":
                     PrintTransactions.execute(this, email, timestamp, output);
+                    break;
+                case "checkCardStatus":
+                    CheckCardStatus.execute(this, cardNumber, timestamp, output);
+                    break;
+                case "splitPayment":
+                    SplitPayment.execute(this, accounts, amount, currency, timestamp);
+                    break;
+                case "report":
+                    Report.execute(this, startTimestamp, endTimestamp, account, timestamp, output);
                     break;
             }
         }

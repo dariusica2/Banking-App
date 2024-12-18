@@ -25,7 +25,7 @@ public class PayOnline {
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
         HashMap<String, HashMap<String, Double>> exchangeRateMap = bankDataBase.getExchangeRateMap();
 
-        // Checking if account exists
+        // Checking if user exists
         User selectedUser = userMap.get(email);
         if (selectedUser == null) {
             return;
@@ -50,6 +50,13 @@ public class PayOnline {
             return;
         }
 
+        // If card is frozen
+        if (selectedCard.getStatus().equals("frozen")) {
+            Transaction transaction = new Transaction.Builder(1, timestamp, "The card is frozen").build();
+            selectedUser.getTransactions().add(transaction);
+            return;
+        }
+
         // Finding the account with the selected card
         Account selectedAccount = selectedCard.getParentAccount();
         double decreaseAmount;
@@ -65,6 +72,8 @@ public class PayOnline {
 
         // If balance would go below zero
         if (decreaseAmount > selectedAccount.getBalance()) {
+            Transaction transaction = new Transaction.Builder(1, timestamp, "Insufficient funds").build();
+            selectedUser.getTransactions().add(transaction);
             return;
         }
 
@@ -72,7 +81,7 @@ public class PayOnline {
         selectedAccount.decreaseBalance(decreaseAmount);
 
         Transaction transaction = new Transaction.Builder(4, timestamp, "Card payment")
-                .putAmount(amount)
+                .putAmount(decreaseAmount)
                 .putCommerciant(commerciant).build();
 
         selectedUser.getTransactions().add(transaction);

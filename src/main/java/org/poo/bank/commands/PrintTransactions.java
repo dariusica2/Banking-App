@@ -41,15 +41,21 @@ public class PrintTransactions {
                     transactionNode.put("card", transaction.getCard());
                     transactionNode.put("cardHolder", transaction.getCardHolder());
                     transactionNode.put("account", transaction.getAccount());
+                    transactionNode.put("description", transaction.getDescription());
+                    transactionNode.put("timestamp", transaction.getTimestamp());
                     break;
                 case 3:
                     transactionNode.put("card", transaction.getCard());
                     transactionNode.put("cardHolder", transaction.getCardHolder());
                     transactionNode.put("account", transaction.getAccount());
+                    transactionNode.put("description", transaction.getDescription());
+                    transactionNode.put("timestamp", transaction.getTimestamp());
                     break;
                 case 4:
                     transactionNode.put("amount", transaction.getAmount());
                     transactionNode.put("commerciant", transaction.getCommerciant());
+                    transactionNode.put("description", transaction.getDescription());
+                    transactionNode.put("timestamp", transaction.getTimestamp());
                     break;
                 case 5:
                     transactionNode.put("amount", transaction.getAmountCurrency());
@@ -58,6 +64,15 @@ public class PrintTransactions {
                     transactionNode.put("senderIBAN", transaction.getSenderIBAN());
                     transactionNode.put("timestamp", transaction.getTimestamp());
                     transactionNode.put("transferType", transaction.getTransferType());
+                    break;
+                case 6:
+                    transactionNode.put("amount", transaction.getAmount());
+                    transactionNode.put("currency", transaction.getCurrency());
+                    transactionNode.put("description", transaction.getDescription());
+                    ArrayNode accountsArray = mapper.createArrayNode();
+                    transaction.getInvolvedAccounts().forEach(accountsArray::add);
+                    transactionNode.set("involvedAccounts", accountsArray);
+                    transactionNode.put("timestamp", transaction.getTimestamp());
                     break;
             }
             outputNode.add(transactionNode);
