@@ -1,6 +1,6 @@
 package org.poo.bank.commands;
 
-import org.poo.bank.Account;
+import org.poo.bank.account.Account;
 import org.poo.bank.BankDataBase;
 
 import java.util.HashMap;

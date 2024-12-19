@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.*;
+import org.poo.bank.account.Account;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class Report {
     /**
@@ -23,6 +22,14 @@ public class Report {
         // Checking if account exists
         Account selectedAccount = accountMap.get(account);
         if (selectedAccount == null) {
+            // Writing to output
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode menuNode = mapper.createObjectNode();
+
+            menuNode.put("command", "report");
+            Output.accountNotFound(timestamp, menuNode);
+
+            output.add(menuNode);
             return;
         }
 

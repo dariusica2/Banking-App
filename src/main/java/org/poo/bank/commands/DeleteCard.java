@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.*;
+import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 
 import java.util.HashMap;
@@ -41,5 +42,6 @@ public class DeleteCard {
                 .putCardHolder(userEmail)
                 .putAccount(userAccount).build();
         selectedUser.getTransactions().add(transaction);
+        parentAccount.getAccountTransactions().add(transaction);
     }
 }

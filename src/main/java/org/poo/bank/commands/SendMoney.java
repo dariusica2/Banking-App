@@ -1,14 +1,9 @@
 package org.poo.bank.commands;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.*;
+import org.poo.bank.account.Account;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class SendMoney {
     /**
@@ -67,6 +62,7 @@ public class SendMoney {
                                             .putAmountCurrency(senderAmountCurrency)
                                             .putTransferType("sent").build();
         senderUser.getTransactions().add(senderTransaction);
+        senderAccount.getAccountTransactions().add(senderTransaction);
 
         String receiverAmountCurrency = receivedAmount + " " + receiverCurrency;
         Transaction receiverTransaction = new Transaction.Builder(5, timestamp, description)
@@ -75,5 +71,6 @@ public class SendMoney {
                                               .putAmountCurrency(receiverAmountCurrency)
                                               .putTransferType("received").build();
         receiverUser.getTransactions().add(receiverTransaction);
+        receiverAccount.getAccountTransactions().add(receiverTransaction);
     }
 }

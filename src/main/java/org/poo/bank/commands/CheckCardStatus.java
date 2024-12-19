@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.*;
+import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 
 import java.util.HashMap;
@@ -46,6 +47,7 @@ public class CheckCardStatus {
             Transaction transaction = new Transaction.Builder(1, timestamp,
                     "You have reached the minimum amount of funds, the card will be frozen").build();
             parentUser.getTransactions().add(transaction);
+            parentAccount.getAccountTransactions().add(transaction);
         }
     }
 }

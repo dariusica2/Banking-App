@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import lombok.Data;
 
+import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 import org.poo.bank.commands.*;
 import org.poo.fileio.CommandInput;
@@ -139,6 +140,9 @@ public class BankDataBase {
                     break;
                 case "report":
                     Report.execute(this, startTimestamp, endTimestamp, account, timestamp, output);
+                    break;
+                case "spendingsReport":
+                    SpendingsReport.execute(this, startTimestamp, endTimestamp, account, timestamp, output);
                     break;
             }
         }

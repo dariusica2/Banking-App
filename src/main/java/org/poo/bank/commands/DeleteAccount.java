@@ -2,6 +2,7 @@ package org.poo.bank.commands;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.poo.bank.*;
+import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 
 import java.util.ArrayList;

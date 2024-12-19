@@ -1,8 +1,6 @@
 package org.poo.bank.card;
 
-import org.poo.bank.Account;
-
-import java.util.HashMap;
+import org.poo.bank.account.Account;
 
 public class ClassicCard extends Card {
     public ClassicCard(String cardNumber, Account parentAccount) {

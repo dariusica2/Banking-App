@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.*;
+import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 import org.poo.bank.card.CardFactory;
 import org.poo.bank.card.CardInfo;
@@ -53,5 +54,6 @@ public class CreateCard {
                 .putCardHolder(userEmail)
                 .putAccount(account).build();
         selectedUser.getTransactions().add(transaction);
+        selectedAccount.getAccountTransactions().add(transaction);
     }
 }

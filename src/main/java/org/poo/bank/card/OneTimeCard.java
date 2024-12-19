@@ -1,9 +1,7 @@
 package org.poo.bank.card;
 
-import org.poo.bank.Account;
+import org.poo.bank.account.Account;
 import org.poo.utils.Utils;
-
-import java.util.HashMap;
 
 public class OneTimeCard extends Card {
     public OneTimeCard(String cardNumber, Account parentAccount) {

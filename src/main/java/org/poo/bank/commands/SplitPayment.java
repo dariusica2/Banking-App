@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.*;
+import org.poo.bank.account.Account;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ public class SplitPayment {
             selectedAccount.decreaseBalance(convertedAmounts.removeFirst());
             User parentUser = selectedAccount.getParentUser();
             parentUser.getTransactions().add(transaction);
+            selectedAccount.getAccountTransactions().add(transaction);
         }
     }
 }

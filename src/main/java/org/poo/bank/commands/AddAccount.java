@@ -1,6 +1,6 @@
 package org.poo.bank.commands;
 
-import org.poo.bank.Account;
+import org.poo.bank.account.Account;
 import org.poo.bank.BankDataBase;
 import org.poo.bank.Transaction;
 import org.poo.bank.User;
@@ -41,5 +41,6 @@ public class AddAccount {
         // Adding specific transaction
         Transaction transaction = new Transaction.Builder(1, timestamp, "New account created").build();
         selectedUser.getTransactions().add(transaction);
+        createdAccount.getAccountTransactions().add(transaction);
     }
 }

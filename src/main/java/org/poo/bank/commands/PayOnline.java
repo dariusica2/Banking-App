@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.*;
+import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 
 import java.util.HashMap;
@@ -81,5 +82,6 @@ public class PayOnline {
                 .putCommerciant(commerciant).build();
 
         selectedUser.getTransactions().add(transaction);
+        selectedAccount.getAccountTransactions().add(transaction);
     }
 }

@@ -1,7 +1,7 @@
 package org.poo.bank.card;
 
 import lombok.Data;
-import org.poo.bank.Account;
+import org.poo.bank.account.Account;
 
 import java.util.HashMap;
 

@@ -1,6 +1,8 @@
-package org.poo.bank;
+package org.poo.bank.account;
 
 import lombok.Data;
+import org.poo.bank.Transaction;
+import org.poo.bank.User;
 import org.poo.bank.card.Card;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class Account {
     private String accountType;
     private double minBalance;
     private ArrayList<Card> cards;
+    private ArrayList<Transaction> accountTransactions;
 
     public Account(String iban, String currency, String accountType, User parentUser) {
         this.parentUser = parentUser;
@@ -21,6 +24,7 @@ public class Account {
         this.currency = currency;
         this.accountType = accountType;
         cards = new ArrayList<>();
+        accountTransactions = new ArrayList<>();
     }
 
     public void increaseBalance(double amount) {

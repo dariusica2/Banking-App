@@ -33,6 +33,16 @@ public class Output {
         menuNode.put("timestamp", timestamp);
     }
 
+    public static void accountNotFound(int timestamp, ObjectNode menuNode) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode outputNode = mapper.createObjectNode();
+        outputNode.put("description", "Account not found");
+        outputNode.put("timestamp", timestamp);
+        menuNode.set("output", outputNode);
+        menuNode.put("timestamp", timestamp);
+    }
+
     public static void deleteAccountError(int timestamp, ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
 
