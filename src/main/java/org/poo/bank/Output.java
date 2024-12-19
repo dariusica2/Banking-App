@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class Output {
+public final class Output {
     /**
      * Utility class requirement
      */
@@ -23,17 +23,10 @@ public class Output {
 
     }
 
-    public static void cardNotFound(int timestamp, ObjectNode menuNode) {
-        ObjectMapper mapper = new ObjectMapper();
-
-        ObjectNode outputNode = mapper.createObjectNode();
-        outputNode.put("description", "Card not found");
-        outputNode.put("timestamp", timestamp);
-        menuNode.set("output", outputNode);
-        menuNode.put("timestamp", timestamp);
-    }
-
-    public static void accountNotFound(int timestamp, ObjectNode menuNode) {
+    /**
+     *
+     */
+    public static void accountNotFound(final int timestamp, final ObjectNode menuNode) {
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode outputNode = mapper.createObjectNode();
@@ -43,7 +36,23 @@ public class Output {
         menuNode.put("timestamp", timestamp);
     }
 
-    public static void deleteAccountError(int timestamp, ArrayNode output) {
+    /**
+     *
+     */
+    public static void cardNotFound(final int timestamp, final ObjectNode menuNode) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode outputNode = mapper.createObjectNode();
+        outputNode.put("description", "Card not found");
+        outputNode.put("timestamp", timestamp);
+        menuNode.set("output", outputNode);
+        menuNode.put("timestamp", timestamp);
+    }
+
+    /**
+     *
+     */
+    public static void deleteAccountError(final int timestamp, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode menuNode = mapper.createObjectNode();
@@ -58,7 +67,10 @@ public class Output {
         output.add(menuNode);
     }
 
-    public static void deleteAccountSuccess(int timestamp, ArrayNode output) {
+    /**
+     *
+     */
+    public static void deleteAccountSuccess(final int timestamp, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode menuNode = mapper.createObjectNode();

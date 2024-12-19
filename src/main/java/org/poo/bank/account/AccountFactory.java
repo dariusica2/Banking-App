@@ -10,6 +10,9 @@ public final class AccountFactory {
     private AccountFactory() {
     }
 
+    /**
+     * Returns instance of class based on account type
+     */
     public static Account createAccount(final AccountInfo accountInfo) {
         return switch (accountInfo.getAccountType()) {
             case "savings" -> new SavingsAccount(accountInfo);

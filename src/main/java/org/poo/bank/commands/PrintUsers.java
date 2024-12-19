@@ -3,9 +3,9 @@ package org.poo.bank.commands;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.poo.bank.account.Account;
 import org.poo.bank.BankDataBase;
 import org.poo.bank.User;
+import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 
 import java.util.LinkedHashMap;
@@ -18,6 +18,11 @@ public final class PrintUsers {
     private PrintUsers() {
     }
 
+    /**
+     * Prints all users in the database
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final int timestamp, final ArrayNode output) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();

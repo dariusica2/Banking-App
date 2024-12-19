@@ -17,8 +17,15 @@ public abstract class Card {
         status = "active";
     }
 
+    /**
+     * Changes based on card type
+     */
     public abstract void pay(double amount);
 
+    /**
+     * Checks if the card is still associated with the same cardNumber. If not, it replaces
+     * old key.
+     */
     public final void checkCardNumber(final String cardNumberBeforePay,
                                       final HashMap<String, Card> cardMap) {
         if (!cardNumber.equals(cardNumberBeforePay)) {

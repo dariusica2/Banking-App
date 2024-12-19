@@ -27,7 +27,7 @@ public final class Transaction {
     private List<String> involvedAccounts;
     private String error;
 
-    public static class Builder {
+    public final static class Builder {
         // Mandatory fields
         private int transactionType;
         private int timestamp;
@@ -55,61 +55,97 @@ public final class Transaction {
             this.description = description;
         }
 
+        /**
+         *
+         */
         public Builder putCard(final String newCard) {
             this.card = newCard;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putCardHolder(final String newCardHolder) {
             this.cardHolder = newCardHolder;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putAccount(final String newAccount) {
             this.account = newAccount;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putAmount(final double newAmount) {
             this.amount = newAmount;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putCommerciant(final String newCommerciant) {
             this.commerciant = newCommerciant;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putAmountCurrency(final String newAmountCurrency) {
             this.amountCurrency = newAmountCurrency;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putSenderIBAN(final String newSenderIBAN) {
             this.senderIBAN = newSenderIBAN;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putReceiverIBAN(final String newReceiverIBAN) {
             this.receiverIBAN = newReceiverIBAN;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putTransferType(final String newTransferType) {
             this.transferType = newTransferType;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putCurrency(final String newCurrency) {
             this.currency = newCurrency;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putInvolvedAccounts(final List<String> newInvolvedAccounts) {
             this.involvedAccounts = newInvolvedAccounts;
             return this;
         }
 
+        /**
+         *
+         */
         public Builder putError(final String newError) {
             this.error = newError;
             return this;

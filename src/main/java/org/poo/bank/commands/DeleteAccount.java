@@ -1,7 +1,10 @@
 package org.poo.bank.commands;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import org.poo.bank.*;
+import org.poo.bank.BankDataBase;
+import org.poo.bank.Output;
+import org.poo.bank.Transaction;
+import org.poo.bank.User;
 import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 
@@ -16,6 +19,13 @@ public final class DeleteAccount {
     private DeleteAccount() {
     }
 
+    /**
+     * Deletes an account from the database
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     * @param email specific email associated to a single user
+     * @param account specific IBAN associated to a single account
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final String email, final String account,
                                final int timestamp, final ArrayNode output) {

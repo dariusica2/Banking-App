@@ -1,6 +1,8 @@
 package org.poo.bank.commands;
 
-import org.poo.bank.*;
+import org.poo.bank.BankDataBase;
+import org.poo.bank.Transaction;
+import org.poo.bank.User;
 import org.poo.bank.account.Account;
 
 import java.util.ArrayList;
@@ -14,12 +16,21 @@ public final class SplitPayment {
     private SplitPayment() {
     }
 
+    /**
+     * Splits the payment between a finite number of people
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     * @param currency given currency of account
+     * @param amount amount to be split
+     * @param accounts list of accounts which split the payment
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final List<String> accounts, final double amount,
                                final String currency,
                                final int timestamp) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
-        HashMap<String, HashMap<String, Double>> exchangeRateMap = bankDataBase.getExchangeRateMap();
+        HashMap<String, HashMap<String, Double>> exchangeRateMap
+                = bankDataBase.getExchangeRateMap();
 
         // Checking if all accounts exist
         for (String account : accounts) {
@@ -28,7 +39,7 @@ public final class SplitPayment {
             }
         }
 
-        double splitAmount = amount / (double)accounts.size();
+        double splitAmount = amount / (double) accounts.size();
 
         ArrayList<Double> convertedAmounts = new ArrayList<Double>();
 
@@ -43,19 +54,19 @@ public final class SplitPayment {
             if (selectedAccount.getCurrency().equals(currency)) {
                 convertedAmount = splitAmount;
             } else {
-                convertedAmount = splitAmount * exchangeRateMap.get(currency).get(selectedAccount.getCurrency());
+                convertedAmount = splitAmount * exchangeRateMap
+                        .get(currency).get(selectedAccount.getCurrency());
             }
 
             if (selectedAccount.getBalance() <= convertedAmount) {
                 Transaction transaction = new Transaction.Builder(6, timestamp,
                         "Split payment of " + String.format("%.2f", amount) + " " + currency)
-                        .putError("Account " + account + " has insufficient funds for a split payment.")
+                        .putError("Account " + account
+                                + " has insufficient funds for a split payment.")
                         .putCurrency(currency)
                         .putAmount(splitAmount)
                         .putInvolvedAccounts(accounts).build();
-                if (amount == 9003) {
-                    System.out.println(transaction.getError());
-                }
+
                 for (String involvedAccount : accounts) {
                     User parentUser = accountMap.get(involvedAccount).getParentUser();
                     parentUser.getTransactions().add(transaction);

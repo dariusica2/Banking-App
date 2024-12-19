@@ -3,7 +3,10 @@ package org.poo.bank.commands;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.poo.bank.*;
+import org.poo.bank.BankDataBase;
+import org.poo.bank.CommerciantInfo;
+import org.poo.bank.Output;
+import org.poo.bank.Transaction;
 import org.poo.bank.account.Account;
 
 import java.util.ArrayList;
@@ -17,6 +20,15 @@ public final class SpendingsReport {
     private SpendingsReport() {
     }
 
+    /**
+     * Generates a report for a specific account containing all the purchases to certain
+     * commerciants
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     * @param account specific IBAN associated to a single account
+     * @param startTimestamp
+     * @param endTimestamp
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final int startTimestamp, final int endTimestamp,
                                final String account,

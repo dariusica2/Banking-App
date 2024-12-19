@@ -10,6 +10,9 @@ public final class CardFactory {
     private CardFactory() {
     }
 
+    /**
+     * Returns instance of class based on card type
+     */
     public static Card createCard(final CardInfo cardInfo) {
         return switch (cardInfo.getType()) {
             case "oneTime" -> new OneTimeCard(cardInfo);

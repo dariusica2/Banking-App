@@ -4,15 +4,18 @@ import lombok.Data;
 
 @Data
 public final class CommerciantInfo {
-    String commerciant;
-    double amount;
+    private String commerciant;
+    private double amount;
 
     public CommerciantInfo(final String commerciant, final double amount) {
         this.commerciant = commerciant;
         this.amount = amount;
     }
 
-    public void increaseAmount(double addedAmount) {
+    /**
+     *
+     */
+    public void increaseAmount(final double addedAmount) {
         amount += addedAmount;
     }
 }

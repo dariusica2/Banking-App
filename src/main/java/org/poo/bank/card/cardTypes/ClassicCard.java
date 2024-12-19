@@ -8,6 +8,9 @@ public final class ClassicCard extends Card {
         super(cardInfo);
     }
 
+    /**
+     *
+     */
     public void pay(final double amount) {
         getParentAccount().decreaseBalance(amount);
     }

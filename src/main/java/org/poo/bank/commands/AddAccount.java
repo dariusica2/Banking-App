@@ -1,10 +1,9 @@
 package org.poo.bank.commands;
 
-import org.poo.bank.account.Account;
 import org.poo.bank.BankDataBase;
 import org.poo.bank.Transaction;
 import org.poo.bank.User;
-
+import org.poo.bank.account.Account;
 import org.poo.bank.account.AccountFactory;
 import org.poo.bank.account.AccountInfo;
 import org.poo.utils.Utils;
@@ -19,6 +18,15 @@ public final class AddAccount {
     private AddAccount() {
     }
 
+    /**
+     * Adds account to the database
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     * @param email specific email associated to a single user
+     * @param currency given currency of account
+     * @param accountType classic or savings
+     * @param interestRate value to which the interest rate is changes in a savings account
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final String email, final String currency, final String accountType,
                                final int timestamp, final double interestRate) {
@@ -33,7 +41,6 @@ public final class AddAccount {
 
         // Creating new account
         String iban = Utils.generateIBAN();
-//        Account createdAccount = new Account(iban, currency, accountType, selectedUser);
         AccountInfo accountInfo = new AccountInfo(iban, currency, accountType,
                 interestRate, selectedUser);
         Account createdAccount = AccountFactory.createAccount(accountInfo);

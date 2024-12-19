@@ -14,10 +14,16 @@ public final class SavingsAccount extends Account {
         interestRate = accountInfo.getInterestRate();
     }
 
+    /**
+     *
+     */
     public void addInterest(final int timestamp, final ArrayNode output) {
         increaseBalance(interestRate * getBalance());
     }
 
+    /**
+     *
+     */
     public void changeInterestRate(final double newInterestRate,
                                    final int timestamp, final ArrayNode output) {
         interestRate = newInterestRate;

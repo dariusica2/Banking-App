@@ -1,6 +1,8 @@
 package org.poo.bank.commands;
 
-import org.poo.bank.*;
+import org.poo.bank.BankDataBase;
+import org.poo.bank.Transaction;
+import org.poo.bank.User;
 import org.poo.bank.account.Account;
 
 import java.util.HashMap;
@@ -12,6 +14,16 @@ public final class SendMoney {
     private SendMoney() {
     }
 
+    /**
+     * Checks if the receiver is an alias and sends the money to that account (if there are
+     * enough funds)
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     * @param account specific IBAN associated to a single account
+     * @param amount amount to be sent
+     * @param description description
+     * @param receiver alias or IBAN associated to a single account
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final String account, final double amount, String receiver,
                                final int timestamp,

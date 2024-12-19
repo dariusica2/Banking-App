@@ -28,15 +28,27 @@ public abstract class Account {
         accountTransactions = new ArrayList<Transaction>();
     }
 
+    /**
+     * Changes based on card type
+     */
     public abstract void addInterest(int timestamp, ArrayNode output);
 
+    /**
+     * Changes based on card type
+     */
     public abstract void changeInterestRate(double newInterestRate,
                                             int timestamp, ArrayNode output);
 
+    /**
+     *
+     */
     public final void increaseBalance(final double amount) {
         balance += amount;
     }
 
+    /**
+     *
+     */
     public final void decreaseBalance(final double amount) {
         balance -= amount;
     }

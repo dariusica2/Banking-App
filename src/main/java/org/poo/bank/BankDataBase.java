@@ -1,12 +1,26 @@
 package org.poo.bank;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
-
 import lombok.Data;
-
 import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
-import org.poo.bank.commands.*;
+import org.poo.bank.commands.AddAccount;
+import org.poo.bank.commands.AddFunds;
+import org.poo.bank.commands.AddInterest;
+import org.poo.bank.commands.ChangeInterestRate;
+import org.poo.bank.commands.CheckCardStatus;
+import org.poo.bank.commands.CreateCard;
+import org.poo.bank.commands.DeleteAccount;
+import org.poo.bank.commands.DeleteCard;
+import org.poo.bank.commands.PayOnline;
+import org.poo.bank.commands.PrintTransactions;
+import org.poo.bank.commands.PrintUsers;
+import org.poo.bank.commands.Report;
+import org.poo.bank.commands.SendMoney;
+import org.poo.bank.commands.SetAlias;
+import org.poo.bank.commands.SetMinimumBalance;
+import org.poo.bank.commands.SpendingsReport;
+import org.poo.bank.commands.SplitPayment;
 import org.poo.fileio.CommandInput;
 import org.poo.fileio.ExchangeInput;
 import org.poo.fileio.UserInput;
@@ -22,6 +36,7 @@ public final class BankDataBase {
     private HashMap<String, Card> cardMap;
     private HashMap<String, HashMap<String, Double>> exchangeRateMap;
 
+
     public BankDataBase() {
         userMap = new LinkedHashMap<String, User>();
         accountMap = new HashMap<String, Account>();
@@ -29,6 +44,9 @@ public final class BankDataBase {
         exchangeRateMap = new HashMap<String, HashMap<String, Double>>();
     }
 
+    /**
+     * Adds all users given in the input file to the database
+     */
     public void addUsers(final UserInput[] userInputs) {
         for (UserInput userInput : userInputs) {
             User user = new User(userInput);
@@ -36,6 +54,10 @@ public final class BankDataBase {
         }
     }
 
+    /**
+     * Creates all possible exchange rates using an algorithm similar to Floyd-Warshall
+     * Simulates nodes by using a HashMap which associates a String with another HashMap
+     */
     public void addExchangeRates(final ExchangeInput[] exchangeRates) {
         // Going through already provided exchange rates
         for (ExchangeInput exchangeRate : exchangeRates) {
@@ -68,6 +90,9 @@ public final class BankDataBase {
         }
     }
 
+    /**
+     * Most important part of code, reads and interprets all commands given at input
+     */
     public void interpretCommands(final CommandInput[] commands, final ArrayNode output) {
         for (CommandInput commandInput : commands) {
             String command = commandInput.getCommand();

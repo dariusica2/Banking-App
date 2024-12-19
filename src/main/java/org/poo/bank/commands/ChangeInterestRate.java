@@ -13,6 +13,13 @@ public final class ChangeInterestRate {
     private ChangeInterestRate() {
     }
 
+    /**
+     * Changes interest rate of a savings account
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     * @param account specific IBAN associated to a single account
+     * @param newInterestRate new interest rate of the savings account
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final String account, final double newInterestRate,
                                final int timestamp, final ArrayNode output) {

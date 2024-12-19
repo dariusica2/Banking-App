@@ -11,6 +11,9 @@ public final class ClassicAccount extends Account {
         super(accountInfo);
     }
 
+    /**
+     * Unsupported command for classic account
+     */
     public void addInterest(final int timestamp, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode menuNode = mapper.createObjectNode();
@@ -26,6 +29,9 @@ public final class ClassicAccount extends Account {
         output.add(menuNode);
     }
 
+    /**
+     * Unsupported command for classic account
+     */
     public void changeInterestRate(final double newInterestRate,
                                    final int timestamp, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();

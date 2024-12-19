@@ -3,7 +3,9 @@ package org.poo.bank.commands;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.poo.bank.*;
+import org.poo.bank.BankDataBase;
+import org.poo.bank.Transaction;
+import org.poo.bank.User;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -15,6 +17,12 @@ public final class PrintTransactions {
     private PrintTransactions() {
     }
 
+    /**
+     * Prints all transactions of a specific user
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     * @param email specific email associated to a single user
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final String email,
                                final int timestamp, final ArrayNode output) {

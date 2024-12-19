@@ -1,6 +1,8 @@
 package org.poo.bank.commands;
 
-import org.poo.bank.*;
+import org.poo.bank.BankDataBase;
+import org.poo.bank.Transaction;
+import org.poo.bank.User;
 import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
 
@@ -14,6 +16,12 @@ public final class DeleteCard {
     private DeleteCard() {
     }
 
+    /**
+     * Deletes an existing card from the database
+     * @param bankDataBase database containing all information about users, accounts,
+     *                     cards and exchange rates
+     * @param cardNumber specific number associated to a single card
+     */
     public static void execute(final BankDataBase bankDataBase,
                                final String cardNumber,
                                final int timestamp) {
