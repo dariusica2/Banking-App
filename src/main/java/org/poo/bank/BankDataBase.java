@@ -105,10 +105,10 @@ public class BankDataBase {
                     AddAccount.execute(this, email, currency, accountType, timestamp);
                     break;
                 case "createCard":
-                    CreateCard.execute(this, account, email, timestamp);
+                    CreateCard.execute(this, account, email, timestamp, "classic");
                     break;
                 case "createOneTimeCard":
-                    CreateOneTimeCard.execute(this, account, email, timestamp);
+                    CreateCard.execute(this, account, email, timestamp, "oneTime");
                     break;
                 case "addFunds":
                     AddFunds.execute(this, account, amount, timestamp);

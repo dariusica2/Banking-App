@@ -72,7 +72,9 @@ public class PayOnline {
         }
 
         // Decreasing moneys
-        selectedAccount.decreaseBalance(decreaseAmount);
+        String cardNumberBeforePay = selectedCard.getCardNumber();
+        selectedCard.pay(decreaseAmount);
+        selectedCard.checkCardNumber(cardNumberBeforePay, cardMap);
 
         Transaction transaction = new Transaction.Builder(4, timestamp, "Card payment")
                 .putAmount(decreaseAmount)

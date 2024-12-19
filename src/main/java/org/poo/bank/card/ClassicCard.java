@@ -2,12 +2,14 @@ package org.poo.bank.card;
 
 import org.poo.bank.Account;
 
-public class ClassicCard extends CardTest {
+import java.util.HashMap;
+
+public class ClassicCard extends Card {
     public ClassicCard(String cardNumber, Account parentAccount) {
         super(parentAccount, cardNumber);
     }
 
-    public void pay() {
-
+    public void pay(double amount) {
+        getParentAccount().decreaseBalance(amount);
     }
 }

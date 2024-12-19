@@ -2,6 +2,8 @@ package org.poo.bank.commands;
 
 import org.poo.bank.*;
 import org.poo.bank.card.Card;
+import org.poo.bank.card.CardFactory;
+import org.poo.bank.card.CardInfo;
 import org.poo.utils.Utils;
 
 import java.util.HashMap;
@@ -16,7 +18,7 @@ public class CreateCard {
 
     public static void execute(BankDataBase bankDataBase,
                                String account, String email,
-                               int timestamp) {
+                               int timestamp, String type) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
@@ -35,7 +37,9 @@ public class CreateCard {
 
         // Creating new card
         String cardNumber = Utils.generateCardNumber();
-        Card createdCard = new Card(cardNumber, selectedAccount);
+//        Card createdCard = new Card(cardNumber, selectedAccount);
+        CardInfo cardInfo = new CardInfo(selectedAccount, cardNumber, type);
+        Card createdCard = CardFactory.createCard(cardInfo);
 
         // Mapping card to its card Number
         cardMap.put(cardNumber, createdCard);
