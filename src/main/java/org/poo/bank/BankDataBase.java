@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import lombok.Data;
 
+import org.poo.bank.card.Card;
 import org.poo.bank.commands.*;
 import org.poo.fileio.CommandInput;
 import org.poo.fileio.ExchangeInput;
 import org.poo.fileio.UserInput;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -107,14 +107,14 @@ public class BankDataBase {
                 case "createCard":
                     CreateCard.execute(this, account, email, timestamp);
                     break;
+                case "createOneTimeCard":
+                    CreateOneTimeCard.execute(this, account, email, timestamp);
+                    break;
                 case "addFunds":
                     AddFunds.execute(this, account, amount, timestamp);
                     break;
                 case "deleteAccount":
                     DeleteAccount.execute(this, email, account, timestamp, output);
-                    break;
-                case "createOneTimeCard":
-                    CreateOneTimeCard.execute(this, account, email, timestamp);
                     break;
                 case "deleteCard":
                     DeleteCard.execute(this, cardNumber, timestamp);

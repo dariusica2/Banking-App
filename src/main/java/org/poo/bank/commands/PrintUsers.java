@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.Account;
 import org.poo.bank.BankDataBase;
-import org.poo.bank.Card;
+import org.poo.bank.card.Card;
 import org.poo.bank.User;
 
 import java.util.LinkedHashMap;

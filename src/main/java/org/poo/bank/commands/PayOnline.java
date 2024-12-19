@@ -4,11 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.*;
+import org.poo.bank.card.Card;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class PayOnline {
     /**
@@ -36,15 +35,10 @@ public class PayOnline {
         if (selectedCard == null) {
             // Writing to output
             ObjectMapper mapper = new ObjectMapper();
-
             ObjectNode menuNode = mapper.createObjectNode();
-            menuNode.put("command", "payOnline");
 
-            ObjectNode outputNode = mapper.createObjectNode();
-            outputNode.put("timestamp", timestamp);
-            outputNode.put("description", "Card not found");
-            menuNode.set("output", outputNode);
-            menuNode.put("timestamp", timestamp);
+            menuNode.put("command", "payOnline");
+            Output.cardNotFound(timestamp, menuNode);
 
             output.add(menuNode);
             return;

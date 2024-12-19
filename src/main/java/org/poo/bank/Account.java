@@ -1,6 +1,7 @@
 package org.poo.bank;
 
 import lombok.Data;
+import org.poo.bank.card.Card;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.*;
+import org.poo.bank.card.Card;
 import org.poo.utils.Utils;
 
 import java.util.HashMap;
