@@ -11,9 +11,9 @@ public abstract class Card {
     private String cardNumber;
     private String status;
 
-    public Card(Account parentAccount, String cardNumber) {
-        this.parentAccount = parentAccount;
-        this.cardNumber = cardNumber;
+    public Card(CardInfo cardInfo) {
+        this.parentAccount = cardInfo.getParentAccount();
+        this.cardNumber = cardInfo.getCardNumber();
         status = "active";
     }
 

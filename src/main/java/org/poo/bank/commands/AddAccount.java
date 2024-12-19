@@ -5,6 +5,8 @@ import org.poo.bank.BankDataBase;
 import org.poo.bank.Transaction;
 import org.poo.bank.User;
 
+import org.poo.bank.account.AccountFactory;
+import org.poo.bank.account.AccountInfo;
 import org.poo.utils.Utils;
 
 import java.util.HashMap;
@@ -19,7 +21,7 @@ public class AddAccount {
 
     public static void execute(BankDataBase bankDataBase,
                                String email, String currency, String accountType,
-                               int timestamp) {
+                               int timestamp, double interestRate) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
@@ -31,7 +33,9 @@ public class AddAccount {
 
         // Creating new account
         String iban = Utils.generateIBAN();
-        Account createdAccount = new Account(iban, currency, accountType, selectedUser);
+//        Account createdAccount = new Account(iban, currency, accountType, selectedUser);
+        AccountInfo accountInfo = new AccountInfo(iban, currency, accountType, interestRate, selectedUser);
+        Account createdAccount = AccountFactory.createAccount(accountInfo);
 
         // Adding created account in the user's account list
         selectedUser.getAccounts().add(createdAccount);

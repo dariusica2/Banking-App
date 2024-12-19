@@ -90,20 +90,19 @@ public class BankDataBase {
             // report
             int startTimestamp = commandInput.getStartTimestamp();
             int endTimestamp = commandInput.getEndTimestamp();
+            // changeInterestRate
+            double interestRate = commandInput.getInterestRate();
 
             int timestamp = commandInput.getTimestamp();
 
-//            private double minBalance;
-//            private String target;
 //            private String alias;
-//            private double interestRate;
 
             switch (command) {
                 case "printUsers":
                     PrintUsers.execute(this, timestamp, output);
                     break;
                 case "addAccount":
-                    AddAccount.execute(this, email, currency, accountType, timestamp);
+                    AddAccount.execute(this, email, currency, accountType, timestamp, interestRate);
                     break;
                 case "createCard":
                     CreateCard.execute(this, account, email, timestamp, "classic");
@@ -143,6 +142,12 @@ public class BankDataBase {
                     break;
                 case "spendingsReport":
                     SpendingsReport.execute(this, startTimestamp, endTimestamp, account, timestamp, output);
+                    break;
+                case "addInterest":
+                    AddInterest.execute(this, account, timestamp, output);
+                    break;
+                case "changeInterestRate":
+                    ChangeInterestRate.execute(this, account, interestRate, timestamp, output);
                     break;
             }
         }

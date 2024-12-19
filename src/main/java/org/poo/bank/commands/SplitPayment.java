@@ -44,15 +44,30 @@ public class SplitPayment {
                 convertedAmount = splitAmount * exchangeRateMap.get(currency).get(selectedAccount.getCurrency());
             }
             if (selectedAccount.getBalance() < convertedAmount) {
+                Transaction transaction = new Transaction.Builder(6, timestamp,
+                        "Split payment of " + String.format("%.2f", amount) + " " + currency)
+                        .putError("Account " + account + " has insufficient funds for a split payment.")
+                        .putCurrency(currency)
+                        .putAmount(splitAmount)
+                        .putInvolvedAccounts(accounts).build();
+                for (String involvedAccount : accounts) {
+                    User parentUser = accountMap.get(involvedAccount).getParentUser();
+                    parentUser.getTransactions().add(transaction);
+                    accountMap.get(involvedAccount).getAccountTransactions().add(transaction);
+                }
                 return;
             }
             convertedAmounts.add(convertedAmount);
         }
 
-        Transaction transaction = new Transaction.Builder(6, timestamp, "Split payment of " + String.format("%.2f", amount) + " " + currency).putCurrency(currency).putAmount(splitAmount).putInvolvedAccounts(accounts).build();
+        Transaction transaction = new Transaction.Builder(6, timestamp,
+                "Split payment of " + String.format("%.2f", amount) + " " + currency)
+                .putCurrency(currency)
+                .putAmount(splitAmount)
+                .putInvolvedAccounts(accounts).build();
 
-        for (String account : accounts) {
-            Account selectedAccount = accountMap.get(account);
+        for (String involvedAccount : accounts) {
+            Account selectedAccount = accountMap.get(involvedAccount);
             selectedAccount.decreaseBalance(convertedAmounts.removeFirst());
             User parentUser = selectedAccount.getParentUser();
             parentUser.getTransactions().add(transaction);

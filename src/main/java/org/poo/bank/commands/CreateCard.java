@@ -38,7 +38,6 @@ public class CreateCard {
 
         // Creating new card
         String cardNumber = Utils.generateCardNumber();
-//        Card createdCard = new Card(cardNumber, selectedAccount);
         CardInfo cardInfo = new CardInfo(selectedAccount, cardNumber, type);
         Card createdCard = CardFactory.createCard(cardInfo);
 

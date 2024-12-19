@@ -1,11 +1,12 @@
-package org.poo.bank.card;
+package org.poo.bank.card.cardTypes;
 
-import org.poo.bank.account.Account;
+import org.poo.bank.card.Card;
+import org.poo.bank.card.CardInfo;
 import org.poo.utils.Utils;
 
 public class OneTimeCard extends Card {
-    public OneTimeCard(String cardNumber, Account parentAccount) {
-        super(parentAccount, cardNumber);
+    public OneTimeCard(CardInfo cardInfo) {
+        super(cardInfo);
     }
 
     public void pay(double amount) {

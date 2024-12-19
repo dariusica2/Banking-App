@@ -69,6 +69,9 @@ public class PrintTransactions {
                     transactionNode.put("amount", transaction.getAmount());
                     transactionNode.put("currency", transaction.getCurrency());
                     transactionNode.put("description", transaction.getDescription());
+                    if (transaction.getError() != null) {
+                        transactionNode.put("error", transaction.getError());
+                    }
                     ArrayNode accountsArray = mapper.createArrayNode();
                     transaction.getInvolvedAccounts().forEach(accountsArray::add);
                     transactionNode.set("involvedAccounts", accountsArray);
