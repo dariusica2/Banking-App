@@ -10,16 +10,16 @@ import org.poo.utils.Utils;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class CreateCard {
+public final class CreateCard {
     /**
      * Utility class requirement
      */
     private CreateCard() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String account, String email,
-                               int timestamp, String type) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String account, final String email,
+                               final int timestamp, final String type) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
@@ -48,7 +48,8 @@ public class CreateCard {
 
         String userEmail = selectedUser.getEmail();
         // Adding specific transaction
-        Transaction transaction = new Transaction.Builder(2, timestamp, "New card created")
+        Transaction transaction = new Transaction.Builder(2, timestamp,
+                "New card created")
                 .putCard(cardNumber)
                 .putCardHolder(userEmail)
                 .putAccount(account).build();

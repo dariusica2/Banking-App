@@ -10,20 +10,22 @@ import org.poo.bank.card.Card;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class PayOnline {
+public final class PayOnline {
     /**
      * Utility class requirement
      */
     private PayOnline() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String cardNumber, double amount, String currency,
-                               int timestamp,
-                               String description, String commerciant, String email, ArrayNode output) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String cardNumber, final double amount, final String currency,
+                               final int timestamp,
+                               final String description, final String commerciant,
+                               final String email, final ArrayNode output) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
-        HashMap<String, HashMap<String, Double>> exchangeRateMap = bankDataBase.getExchangeRateMap();
+        HashMap<String, HashMap<String, Double>> exchangeRateMap
+                = bankDataBase.getExchangeRateMap();
 
         // Checking if user exists
         User selectedUser = userMap.get(email);
@@ -47,7 +49,8 @@ public class PayOnline {
 
         // If card is frozen
         if (selectedCard.getStatus().equals("frozen")) {
-            Transaction transaction = new Transaction.Builder(1, timestamp, "The card is frozen").build();
+            Transaction transaction = new Transaction.Builder(1, timestamp,
+                    "The card is frozen").build();
             selectedUser.getTransactions().add(transaction);
             return;
         }
@@ -67,7 +70,8 @@ public class PayOnline {
 
         // If balance would go below zero
         if (decreaseAmount > selectedAccount.getBalance()) {
-            Transaction transaction = new Transaction.Builder(1, timestamp, "Insufficient funds").build();
+            Transaction transaction = new Transaction.Builder(1, timestamp,
+                    "Insufficient funds").build();
             selectedUser.getTransactions().add(transaction);
             return;
         }

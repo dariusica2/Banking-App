@@ -1,6 +1,5 @@
 package org.poo.bank.commands;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -8,16 +7,17 @@ import org.poo.bank.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
-public class PrintTransactions {
+public final class PrintTransactions {
     /**
      * Utility class requirement
      */
     private PrintTransactions() {
     }
 
-    public static void execute(BankDataBase bankDataBase, String email, int timestamp, ArrayNode output) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String email,
+                               final int timestamp, final ArrayNode output) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -77,6 +77,8 @@ public class PrintTransactions {
                     transactionNode.set("involvedAccounts", accountsArray);
                     transactionNode.put("timestamp", transaction.getTimestamp());
                     break;
+                default:
+                    throw new IllegalArgumentException("Invalid transaction type");
             }
             outputNode.add(transactionNode);
         }

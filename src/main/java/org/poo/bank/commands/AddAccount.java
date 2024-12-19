@@ -12,16 +12,16 @@ import org.poo.utils.Utils;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class AddAccount {
+public final class AddAccount {
     /**
      * Utility class requirement
      */
     private AddAccount() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String email, String currency, String accountType,
-                               int timestamp, double interestRate) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String email, final String currency, final String accountType,
+                               final int timestamp, final double interestRate) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
@@ -34,7 +34,8 @@ public class AddAccount {
         // Creating new account
         String iban = Utils.generateIBAN();
 //        Account createdAccount = new Account(iban, currency, accountType, selectedUser);
-        AccountInfo accountInfo = new AccountInfo(iban, currency, accountType, interestRate, selectedUser);
+        AccountInfo accountInfo = new AccountInfo(iban, currency, accountType,
+                interestRate, selectedUser);
         Account createdAccount = AccountFactory.createAccount(accountInfo);
 
         // Adding created account in the user's account list
@@ -43,7 +44,8 @@ public class AddAccount {
         accountMap.put(iban, createdAccount);
 
         // Adding specific transaction
-        Transaction transaction = new Transaction.Builder(1, timestamp, "New account created").build();
+        Transaction transaction = new Transaction.Builder(1, timestamp,
+                "New account created").build();
         selectedUser.getTransactions().add(transaction);
         createdAccount.getAccountTransactions().add(transaction);
     }

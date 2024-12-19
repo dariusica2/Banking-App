@@ -5,16 +5,16 @@ import org.poo.bank.BankDataBase;
 
 import java.util.HashMap;
 
-public class AddFunds {
+public final class AddFunds {
     /**
      * Utility class requirement
      */
     private AddFunds() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String account, double amount,
-                               int timestamp) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String account, final double amount,
+                               final int timestamp) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
         // Checking if account exists

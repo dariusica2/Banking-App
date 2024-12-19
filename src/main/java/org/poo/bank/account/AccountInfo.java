@@ -11,7 +11,8 @@ public class AccountInfo {
     private double interestRate;
     private User parentUser;
 
-    public AccountInfo(String iban, String currency, String accountType, double interestRate, User parentUser) {
+    public AccountInfo(final String iban, final String currency, final String accountType,
+                       final double interestRate, final User parentUser) {
         this.iban = iban;
         this.currency = currency;
         this.accountType = accountType;

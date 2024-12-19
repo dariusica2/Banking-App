@@ -11,14 +11,15 @@ import org.poo.bank.card.Card;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class PrintUsers {
+public final class PrintUsers {
     /**
      * Utility class requirement
      */
     private PrintUsers() {
     }
 
-    public static void execute(BankDataBase bankDataBase, int timestamp, ArrayNode output) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final int timestamp, final ArrayNode output) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
 
         ObjectMapper mapper = new ObjectMapper();

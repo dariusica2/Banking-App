@@ -6,16 +6,16 @@ import org.poo.bank.account.Account;
 
 import java.util.HashMap;
 
-public class ChangeInterestRate {
+public final class ChangeInterestRate {
     /**
      * Utility class requirement
      */
     private ChangeInterestRate() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String account,double newInterestRate,
-                               int timestamp, ArrayNode output) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String account, final double newInterestRate,
+                               final int timestamp, final ArrayNode output) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
         Account selectedAccount = accountMap.get(account);

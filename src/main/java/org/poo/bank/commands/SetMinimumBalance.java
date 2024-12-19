@@ -5,16 +5,16 @@ import org.poo.bank.BankDataBase;
 
 import java.util.HashMap;
 
-public class SetMinimumBalance {
+public final class SetMinimumBalance {
     /**
      * Utility class requirement
      */
     private SetMinimumBalance() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               double amount, String account,
-                               int timestamp) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final double amount, final String account,
+                               final int timestamp) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
         // Checking if account exists

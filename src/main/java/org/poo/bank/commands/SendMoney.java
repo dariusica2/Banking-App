@@ -5,24 +5,31 @@ import org.poo.bank.account.Account;
 
 import java.util.HashMap;
 
-public class SendMoney {
+public final class SendMoney {
     /**
      * Utility class requirement
      */
     private SendMoney() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String account, double amount, String receiver,
-                               int timestamp,
-                               String description) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String account, final double amount, String receiver,
+                               final int timestamp,
+                               final String description) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
-        HashMap<String, HashMap<String, Double>> exchangeRateMap = bankDataBase.getExchangeRateMap();
+        HashMap<String, HashMap<String, Double>> exchangeRateMap
+                = bankDataBase.getExchangeRateMap();
 
         // Checking if sender account exists
         Account senderAccount = accountMap.get(account);
         if (senderAccount == null) {
             return;
+        }
+
+        // Check is the receiver is an alias
+        HashMap<String, String> aliasMap = senderAccount.getParentUser().getAliasMap();
+        if (aliasMap.get(receiver) != null) {
+            receiver = aliasMap.get(receiver);
         }
 
         // Checking if receiver account exists
@@ -36,7 +43,8 @@ public class SendMoney {
 
         // If balance would below zero
         if (amount > senderAccount.getBalance()) {
-            Transaction transaction = new Transaction.Builder(1, timestamp, "Insufficient funds").build();
+            Transaction transaction = new Transaction.Builder(1, timestamp,
+                    "Insufficient funds").build();
             senderUser.getTransactions().add(transaction);
             return;
         }

@@ -11,7 +11,7 @@ public abstract class Card {
     private String cardNumber;
     private String status;
 
-    public Card(CardInfo cardInfo) {
+    public Card(final CardInfo cardInfo) {
         this.parentAccount = cardInfo.getParentAccount();
         this.cardNumber = cardInfo.getCardNumber();
         status = "active";
@@ -19,7 +19,8 @@ public abstract class Card {
 
     public abstract void pay(double amount);
 
-    public void checkCardNumber(String cardNumberBeforePay, HashMap<String, Card> cardMap) {
+    public final void checkCardNumber(final String cardNumberBeforePay,
+                                      final HashMap<String, Card> cardMap) {
         if (!cardNumber.equals(cardNumberBeforePay)) {
             cardMap.remove(cardNumberBeforePay);
             cardMap.put(cardNumber, this);

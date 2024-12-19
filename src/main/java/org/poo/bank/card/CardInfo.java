@@ -9,7 +9,7 @@ public class CardInfo {
     private String cardNumber;
     private String type;
 
-    public CardInfo(Account parentAccount, String cardNumber, String type) {
+    public CardInfo(final Account parentAccount, final String cardNumber, final String type) {
         this.parentAccount = parentAccount;
         this.cardNumber = cardNumber;
         this.type = type;

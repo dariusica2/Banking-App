@@ -6,7 +6,7 @@ import org.poo.bank.card.Card;
 
 import java.util.HashMap;
 
-public class DeleteCard {
+public final class DeleteCard {
 
     /**
      * Utility class requirement
@@ -14,9 +14,9 @@ public class DeleteCard {
     private DeleteCard() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String cardNumber,
-                               int timestamp) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String cardNumber,
+                               final int timestamp) {
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
 
         // Checking if card exists
@@ -37,7 +37,8 @@ public class DeleteCard {
         String userEmail = selectedUser.getEmail();
         String userAccount = parentAccount.getIban();
         // Adding specific transaction
-        Transaction transaction = new Transaction.Builder(3, timestamp, "The card has been destroyed")
+        Transaction transaction = new Transaction.Builder(3, timestamp,
+                "The card has been destroyed")
                 .putCard(cardNumber)
                 .putCardHolder(userEmail)
                 .putAccount(userAccount).build();

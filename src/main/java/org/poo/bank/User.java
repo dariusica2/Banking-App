@@ -5,6 +5,7 @@ import org.poo.bank.account.Account;
 import org.poo.fileio.UserInput;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Data
 public class User {
@@ -13,12 +14,14 @@ public class User {
     private String email;
     private ArrayList<Account> accounts;
     private ArrayList<Transaction> transactions;
+    private HashMap<String, String> aliasMap;
 
-    public User(UserInput userInput) {
+    public User(final UserInput userInput) {
         firstName = userInput.getFirstName();
         lastName = userInput.getLastName();
         email = userInput.getEmail();
         accounts = new ArrayList<Account>();
         transactions = new ArrayList<Transaction>();
+        aliasMap = new HashMap<String, String>();
     }
 }

@@ -9,16 +9,16 @@ import org.poo.bank.card.Card;
 
 import java.util.HashMap;
 
-public class CheckCardStatus {
+public final class CheckCardStatus {
     /**
      * Utility class requirement
      */
     private CheckCardStatus() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String cardNumber,
-                               int timestamp, ArrayNode output) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String cardNumber,
+                               final int timestamp, final ArrayNode output) {
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
 
         // Checking if card exists
@@ -45,7 +45,8 @@ public class CheckCardStatus {
         if (parentAccount.getBalance() <= parentAccount.getMinBalance()) {
             selectedCard.setStatus("frozen");
             Transaction transaction = new Transaction.Builder(1, timestamp,
-                    "You have reached the minimum amount of funds, the card will be frozen").build();
+                    "You have reached the minimum amount of funds, "
+                            + "the card will be frozen").build();
             parentUser.getTransactions().add(transaction);
             parentAccount.getAccountTransactions().add(transaction);
         }

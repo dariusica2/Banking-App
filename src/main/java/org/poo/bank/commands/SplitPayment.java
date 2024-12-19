@@ -7,16 +7,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SplitPayment {
+public final class SplitPayment {
     /**
      * Utility class requirement
      */
     private SplitPayment() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               List<String> accounts, double amount, String currency,
-                               int timestamp) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final List<String> accounts, final double amount,
+                               final String currency,
+                               final int timestamp) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
         HashMap<String, HashMap<String, Double>> exchangeRateMap = bankDataBase.getExchangeRateMap();
 
@@ -27,14 +28,15 @@ public class SplitPayment {
             }
         }
 
-        double splitAmount = amount / accounts.size();
-//        System.out.println("accounts size " + accounts.size() + " splitAmount " + splitAmount);
+        double splitAmount = amount / (double)accounts.size();
 
         ArrayList<Double> convertedAmounts = new ArrayList<Double>();
 
         // Checking if all accounts have the minimum amount to pay
-        for (String account : accounts) {
+        for (int i = accounts.size() - 1; i >= 0; i--) {
+            String account = accounts.get(i);
             Account selectedAccount = accountMap.get(account);
+
             // splitAmount will be in the currency of the payment
             // splitAmount needs to be converted to the currency of the account
             double convertedAmount;
@@ -43,13 +45,17 @@ public class SplitPayment {
             } else {
                 convertedAmount = splitAmount * exchangeRateMap.get(currency).get(selectedAccount.getCurrency());
             }
-            if (selectedAccount.getBalance() < convertedAmount) {
+
+            if (selectedAccount.getBalance() <= convertedAmount) {
                 Transaction transaction = new Transaction.Builder(6, timestamp,
                         "Split payment of " + String.format("%.2f", amount) + " " + currency)
                         .putError("Account " + account + " has insufficient funds for a split payment.")
                         .putCurrency(currency)
                         .putAmount(splitAmount)
                         .putInvolvedAccounts(accounts).build();
+                if (amount == 9003) {
+                    System.out.println(transaction.getError());
+                }
                 for (String involvedAccount : accounts) {
                     User parentUser = accountMap.get(involvedAccount).getParentUser();
                     parentUser.getTransactions().add(transaction);
@@ -57,7 +63,7 @@ public class SplitPayment {
                 }
                 return;
             }
-            convertedAmounts.add(convertedAmount);
+            convertedAmounts.addFirst(convertedAmount);
         }
 
         Transaction transaction = new Transaction.Builder(6, timestamp,

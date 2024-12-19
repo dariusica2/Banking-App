@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.account.Account;
 import org.poo.bank.account.AccountInfo;
 
-public class ClassicAccount extends Account {
-    public ClassicAccount(AccountInfo accountInfo) {
+public final class ClassicAccount extends Account {
+    public ClassicAccount(final AccountInfo accountInfo) {
         super(accountInfo);
     }
 
-    public void addInterest(int timestamp, ArrayNode output) {
+    public void addInterest(final int timestamp, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode menuNode = mapper.createObjectNode();
 
@@ -26,7 +26,8 @@ public class ClassicAccount extends Account {
         output.add(menuNode);
     }
 
-    public void changeInterestRate(double newInterestRate, int timestamp, ArrayNode output) {
+    public void changeInterestRate(final double newInterestRate,
+                                   final int timestamp, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode menuNode = mapper.createObjectNode();
 

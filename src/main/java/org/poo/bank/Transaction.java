@@ -2,11 +2,10 @@ package org.poo.bank;
 
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Transaction {
+public final class Transaction {
     // Mandatory fields
     private int transactionType;
     private int timestamp;
@@ -50,69 +49,69 @@ public class Transaction {
         private List<String> involvedAccounts;
         private String error;
 
-        public Builder(int transactionType, int timestamp, String description) {
+        public Builder(final int transactionType, final int timestamp, final String description) {
             this.transactionType = transactionType;
             this.timestamp = timestamp;
             this.description = description;
         }
 
-        public Builder putCard(String card) {
-            this.card = card;
+        public Builder putCard(final String newCard) {
+            this.card = newCard;
             return this;
         }
 
-        public Builder putCardHolder(String cardHolder) {
-            this.cardHolder = cardHolder;
+        public Builder putCardHolder(final String newCardHolder) {
+            this.cardHolder = newCardHolder;
             return this;
         }
 
-        public Builder putAccount(String account) {
-            this.account = account;
+        public Builder putAccount(final String newAccount) {
+            this.account = newAccount;
             return this;
         }
 
-        public Builder putAmount(double amount) {
-            this.amount = amount;
+        public Builder putAmount(final double newAmount) {
+            this.amount = newAmount;
             return this;
         }
 
-        public Builder putCommerciant(String commerciant) {
-            this.commerciant = commerciant;
+        public Builder putCommerciant(final String newCommerciant) {
+            this.commerciant = newCommerciant;
             return this;
         }
 
-        public Builder putAmountCurrency(String amountCurrency) {
-            this.amountCurrency = amountCurrency;
+        public Builder putAmountCurrency(final String newAmountCurrency) {
+            this.amountCurrency = newAmountCurrency;
             return this;
         }
 
-        public Builder putSenderIBAN(String senderIBAN) {
-            this.senderIBAN = senderIBAN;
+        public Builder putSenderIBAN(final String newSenderIBAN) {
+            this.senderIBAN = newSenderIBAN;
             return this;
         }
 
-        public Builder putReceiverIBAN(String receiverIBAN) {
-            this.receiverIBAN = receiverIBAN;
+        public Builder putReceiverIBAN(final String newReceiverIBAN) {
+            this.receiverIBAN = newReceiverIBAN;
             return this;
         }
 
-        public Builder putTransferType(String transferType) {
-            this.transferType = transferType;
+        public Builder putTransferType(final String newTransferType) {
+            this.transferType = newTransferType;
             return this;
         }
 
-        public Builder putCurrency(String currency) {
-            this.currency = currency;
+        public Builder putCurrency(final String newCurrency) {
+            this.currency = newCurrency;
             return this;
         }
 
-        public Builder putInvolvedAccounts(List<String> involvedAccounts) {
-            this.involvedAccounts = involvedAccounts;
+        public Builder putInvolvedAccounts(final List<String> newInvolvedAccounts) {
+            this.involvedAccounts = newInvolvedAccounts;
             return this;
         }
 
-        public Builder putError(String error) {
-            this.error = error;
+        public Builder putError(final String newError) {
+            this.error = newError;
             return this;
         }
 
@@ -121,7 +120,7 @@ public class Transaction {
         }
     }
 
-    private Transaction(Builder builder) {
+    private Transaction(final Builder builder) {
         transactionType = builder.transactionType;
         timestamp = builder.timestamp;
         description = builder.description;

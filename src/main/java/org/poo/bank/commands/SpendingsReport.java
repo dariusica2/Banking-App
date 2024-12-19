@@ -10,14 +10,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class SpendingsReport {
+public final class SpendingsReport {
     /**
      * Utility class requirement
      */
     private SpendingsReport() {
     }
 
-    public static void execute(BankDataBase bankDataBase, int startTimestamp, int endTimestamp, String account, int timestamp, ArrayNode output) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final int startTimestamp, final int endTimestamp,
+                               final String account,
+                               final int timestamp, final ArrayNode output) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
         // Checking if account exists
@@ -58,14 +61,16 @@ public class SpendingsReport {
                 String commerciantName = transaction.getCommerciant();
 
                 if (!commerciantMap.containsKey(commerciantName)) {
-                    commerciantMap.put(commerciantName, new CommerciantInfo(commerciantName, transaction.getAmount()));
+                    commerciantMap.put(commerciantName,
+                            new CommerciantInfo(commerciantName, transaction.getAmount()));
                 } else {
                     commerciantMap.get(commerciantName).increaseAmount(transaction.getAmount());
                 }
             }
         }
 
-        ArrayList<CommerciantInfo> commerciantList = new ArrayList<CommerciantInfo>(commerciantMap.size());
+        ArrayList<CommerciantInfo> commerciantList
+                = new ArrayList<CommerciantInfo>(commerciantMap.size());
         commerciantList.addAll(commerciantMap.values());
         commerciantList.sort(Comparator.comparing(CommerciantInfo::getCommerciant));
 
@@ -81,7 +86,7 @@ public class SpendingsReport {
 
         outputNode.put("balance", selectedAccount.getBalance());
 
-        // commerciants
+        // Commerciants
 
         outputNode.set("commerciants", commerciantsNode);
 

@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 @Data
-public class BankDataBase {
+public final class BankDataBase {
     private LinkedHashMap<String, User> userMap;
     private HashMap<String, Account> accountMap;
     private HashMap<String, Card> cardMap;
@@ -29,14 +29,14 @@ public class BankDataBase {
         exchangeRateMap = new HashMap<String, HashMap<String, Double>>();
     }
 
-    public void addUsers(UserInput[] userInputs) {
+    public void addUsers(final UserInput[] userInputs) {
         for (UserInput userInput : userInputs) {
             User user = new User(userInput);
             userMap.put(user.getEmail(), user);
         }
     }
 
-    public void addExchangeRates(ExchangeInput[] exchangeRates) {
+    public void addExchangeRates(final ExchangeInput[] exchangeRates) {
         // Going through already provided exchange rates
         for (ExchangeInput exchangeRate : exchangeRates) {
             String from = exchangeRate.getFrom();
@@ -59,7 +59,8 @@ public class BankDataBase {
                             || !exchangeRateMap.get(middle).containsKey(to)) {
                         continue;
                     }
-                    double intermediateRate = exchangeRateMap.get(from).get(middle) * exchangeRateMap.get(middle).get(to);
+                    double intermediateRate = exchangeRateMap.get(from).get(middle)
+                            * exchangeRateMap.get(middle).get(to);
                     exchangeRateMap.get(from).put(to, intermediateRate);
                     exchangeRateMap.get(to).put(from, 1.0 / intermediateRate);
                 }
@@ -67,9 +68,10 @@ public class BankDataBase {
         }
     }
 
-    public void interpretCommands(CommandInput[] commands, ArrayNode output) {
+    public void interpretCommands(final CommandInput[] commands, final ArrayNode output) {
         for (CommandInput commandInput : commands) {
             String command = commandInput.getCommand();
+
             // addAccount
             String email = commandInput.getEmail();
             String currency = commandInput.getCurrency();
@@ -92,63 +94,85 @@ public class BankDataBase {
             int endTimestamp = commandInput.getEndTimestamp();
             // changeInterestRate
             double interestRate = commandInput.getInterestRate();
+            // setAlias
+            String alias = commandInput.getAlias();
 
             int timestamp = commandInput.getTimestamp();
 
-//            private String alias;
-
             switch (command) {
                 case "printUsers":
-                    PrintUsers.execute(this, timestamp, output);
+                    PrintUsers.execute(this,
+                            timestamp, output);
                     break;
                 case "addAccount":
-                    AddAccount.execute(this, email, currency, accountType, timestamp, interestRate);
+                    AddAccount.execute(this, email, currency, accountType,
+                            timestamp, interestRate);
                     break;
                 case "createCard":
-                    CreateCard.execute(this, account, email, timestamp, "classic");
+                    CreateCard.execute(this, account, email,
+                            timestamp, "classic");
                     break;
                 case "createOneTimeCard":
-                    CreateCard.execute(this, account, email, timestamp, "oneTime");
+                    CreateCard.execute(this, account, email,
+                            timestamp, "oneTime");
                     break;
                 case "addFunds":
-                    AddFunds.execute(this, account, amount, timestamp);
+                    AddFunds.execute(this, account, amount,
+                            timestamp);
                     break;
                 case "deleteAccount":
-                    DeleteAccount.execute(this, email, account, timestamp, output);
+                    DeleteAccount.execute(this, email, account,
+                            timestamp, output);
                     break;
                 case "deleteCard":
-                    DeleteCard.execute(this, cardNumber, timestamp);
+                    DeleteCard.execute(this, cardNumber,
+                            timestamp);
                     break;
                 case "setMinimumBalance":
-                    SetMinimumBalance.execute(this, amount, account, timestamp);
+                    SetMinimumBalance.execute(this, amount, account,
+                            timestamp);
                     break;
                 case "payOnline":
-                    PayOnline.execute(this, cardNumber, amount, currency, timestamp, description, commerciant, email, output);
+                    PayOnline.execute(this, cardNumber, amount, currency,
+                            timestamp, description, commerciant, email, output);
                     break;
                 case "sendMoney":
-                    SendMoney.execute(this, account, amount, receiver, timestamp, description);
+                    SendMoney.execute(this, account, amount, receiver,
+                            timestamp, description);
                     break;
                 case "printTransactions":
-                    PrintTransactions.execute(this, email, timestamp, output);
+                    PrintTransactions.execute(this, email,
+                            timestamp, output);
                     break;
                 case "checkCardStatus":
-                    CheckCardStatus.execute(this, cardNumber, timestamp, output);
+                    CheckCardStatus.execute(this, cardNumber,
+                            timestamp, output);
                     break;
                 case "splitPayment":
-                    SplitPayment.execute(this, accounts, amount, currency, timestamp);
+                    SplitPayment.execute(this, accounts, amount, currency,
+                            timestamp);
                     break;
                 case "report":
-                    Report.execute(this, startTimestamp, endTimestamp, account, timestamp, output);
+                    Report.execute(this, startTimestamp, endTimestamp, account,
+                            timestamp, output);
                     break;
                 case "spendingsReport":
-                    SpendingsReport.execute(this, startTimestamp, endTimestamp, account, timestamp, output);
+                    SpendingsReport.execute(this, startTimestamp, endTimestamp, account,
+                            timestamp, output);
                     break;
                 case "addInterest":
-                    AddInterest.execute(this, account, timestamp, output);
+                    AddInterest.execute(this, account,
+                            timestamp, output);
                     break;
                 case "changeInterestRate":
-                    ChangeInterestRate.execute(this, account, interestRate, timestamp, output);
+                    ChangeInterestRate.execute(this, account, interestRate,
+                            timestamp, output);
                     break;
+                case "setAlias":
+                    SetAlias.execute(this, email, alias, account);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown command type");
             }
         }
     }

@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class DeleteAccount {
+public final class DeleteAccount {
     /**
      * Utility class requirement
      */
     private DeleteAccount() {
     }
 
-    public static void execute(BankDataBase bankDataBase,
-                               String email, String account,
-                               int timestamp, ArrayNode output) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final String email, final String account,
+                               final int timestamp, final ArrayNode output) {
         LinkedHashMap<String, User> userMap = bankDataBase.getUserMap();
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
         HashMap<String, Card> cardMap = bankDataBase.getCardMap();
@@ -40,6 +40,10 @@ public class DeleteAccount {
         // Checking requirement
         if (selectedAccount.getBalance() != 0) {
             Output.deleteAccountError(timestamp, output);
+            Transaction transaction = new Transaction.Builder(1, timestamp,
+                    "Account couldn't be deleted - there are funds remaining").build();
+            selectedUser.getTransactions().add(transaction);
+            selectedAccount.getAccountTransactions().add(transaction);
             return;
         }
 

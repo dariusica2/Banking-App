@@ -9,14 +9,17 @@ import org.poo.bank.account.Account;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Report {
+public final class Report {
     /**
      * Utility class requirement
      */
     private Report() {
     }
 
-    public static void execute(BankDataBase bankDataBase, int startTimestamp, int endTimestamp, String account, int timestamp, ArrayNode output) {
+    public static void execute(final BankDataBase bankDataBase,
+                               final int startTimestamp, final int endTimestamp,
+                               final String account,
+                               final int timestamp, final ArrayNode output) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
         // Checking if account exists
@@ -51,7 +54,8 @@ public class Report {
         ArrayList<Transaction> transactions = parentUser.getTransactions();
 
         for (Transaction transaction : transactions) {
-            if (startTimestamp <= transaction.getTimestamp() && transaction.getTimestamp() <= endTimestamp) {
+            if (startTimestamp <= transaction.getTimestamp()
+                    && transaction.getTimestamp() <= endTimestamp) {
                 int transactionType = transaction.getTransactionType();
                 ObjectNode transactionNode = mapper.createObjectNode();
                 switch (transactionType) {
@@ -91,11 +95,16 @@ public class Report {
                         transactionNode.put("amount", transaction.getAmount());
                         transactionNode.put("currency", transaction.getCurrency());
                         transactionNode.put("description", transaction.getDescription());
+                        if (transaction.getError() != null) {
+                            transactionNode.put("error", transaction.getError());
+                        }
                         ArrayNode accountsArray = mapper.createArrayNode();
                         transaction.getInvolvedAccounts().forEach(accountsArray::add);
                         transactionNode.set("involvedAccounts", accountsArray);
                         transactionNode.put("timestamp", transaction.getTimestamp());
                         break;
+                    default:
+                        throw new IllegalArgumentException("Invalid transaction type");
                 }
                 transactionsNode.add(transactionNode);
             }
