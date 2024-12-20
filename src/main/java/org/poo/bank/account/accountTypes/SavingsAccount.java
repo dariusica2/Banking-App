@@ -37,6 +37,9 @@ public final class SavingsAccount extends Account {
         getAccountTransactions().add(transaction);
     }
 
+    /*
+     *
+     * */
     public void spendingsReport(final int startTimestamp, final int endTimestamp,
                                 final int timestamp, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();

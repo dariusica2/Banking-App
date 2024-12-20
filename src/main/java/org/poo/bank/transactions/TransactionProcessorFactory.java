@@ -1,5 +1,6 @@
 package org.poo.bank.transactions;
 
+import org.poo.bank.Constants;
 import org.poo.bank.transactions.processorTypes.CardTransactionProcessor;
 import org.poo.bank.transactions.processorTypes.DefaultTransactionProcessor;
 import org.poo.bank.transactions.processorTypes.PaymentTransactionProcessor;
@@ -17,13 +18,15 @@ public class TransactionProcessorFactory {
      * Returns instance of class based on transaction type
      */
     public static TransactionProcessor generateProcessor(final int transactionType) {
+        /*
+        *
+        * */
         return switch (transactionType) {
-            case 1 -> new DefaultTransactionProcessor();
-            case 2 -> new CardTransactionProcessor();
-            case 3 -> new CardTransactionProcessor();
-            case 4 -> new PaymentTransactionProcessor();
-            case 5 -> new TransferTransactionProcessor();
-            case 6 -> new SplitTransactionProcessor();
+            case Constants.STANDARD -> new DefaultTransactionProcessor();
+            case Constants.CARD -> new CardTransactionProcessor();
+            case Constants.PAYMENT -> new PaymentTransactionProcessor();
+            case Constants.TRANSFER -> new TransferTransactionProcessor();
+            case Constants.SPLIT -> new SplitTransactionProcessor();
             default -> throw new IllegalArgumentException("Uhh... unknown transaction type...");
         };
     }

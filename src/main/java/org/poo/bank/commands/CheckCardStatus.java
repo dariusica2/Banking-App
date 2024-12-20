@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Constants;
 import org.poo.bank.Output;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
@@ -54,7 +55,7 @@ public final class CheckCardStatus {
 
         if (parentAccount.getBalance() <= parentAccount.getMinBalance()) {
             selectedCard.setStatus("frozen");
-            Transaction transaction = new Transaction.Builder(1, timestamp,
+            Transaction transaction = new Transaction.Builder(Constants.STANDARD, timestamp,
                     "You have reached the minimum amount of funds, "
                             + "the card will be frozen").build();
             parentUser.getTransactions().add(transaction);

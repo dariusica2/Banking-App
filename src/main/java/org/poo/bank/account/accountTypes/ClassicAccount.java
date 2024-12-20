@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.CommerciantInfo;
+import org.poo.bank.Constants;
 import org.poo.bank.Output;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.account.Account;
@@ -53,6 +54,9 @@ public final class ClassicAccount extends Account {
         output.add(menuNode);
     }
 
+    /*
+     *
+     * */
     public void spendingsReport(final int startTimestamp, final int endTimestamp,
                                 final int timestamp, final ArrayNode output) {
         ObjectMapper mapper = new ObjectMapper();
@@ -68,9 +72,9 @@ public final class ClassicAccount extends Account {
         for (Transaction transaction : transactions) {
             if (startTimestamp <= transaction.getTimestamp()
                     && transaction.getTimestamp() <= endTimestamp
-                    && transaction.getTransactionType() == 4) {
+                    && transaction.getTransactionType() == Constants.PAYMENT) {
                 TransactionProcessor processor = TransactionProcessorFactory
-                        .generateProcessor(4);
+                        .generateProcessor(Constants.PAYMENT);
 
                 ObjectNode transactionNode = processor.process(transaction, mapper);
 

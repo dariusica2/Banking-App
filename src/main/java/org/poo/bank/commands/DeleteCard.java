@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Constants;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
 import org.poo.bank.account.Account;
@@ -45,7 +46,7 @@ public final class DeleteCard {
         String userEmail = selectedUser.getEmail();
         String userAccount = selectedAccount.getIban();
         // Adding specific transaction
-        Transaction transaction = new Transaction.Builder(3, timestamp,
+        Transaction transaction = new Transaction.Builder(Constants.CARD, timestamp,
                 "The card has been destroyed")
                 .putCard(cardNumber)
                 .putCardHolder(userEmail)

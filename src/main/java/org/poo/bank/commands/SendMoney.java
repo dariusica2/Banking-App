@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Constants;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
 import org.poo.bank.account.Account;
@@ -77,7 +78,8 @@ public final class SendMoney {
         receiverAccount.increaseBalance(receivedAmount);
 
         String senderAmountCurrency = amount + " " + senderCurrency;
-        Transaction senderTransaction = new Transaction.Builder(5, timestamp, description)
+        Transaction senderTransaction = new Transaction.Builder(Constants.TRANSFER, timestamp,
+                                             description)
                                             .putSenderIBAN(account)
                                             .putReceiverIBAN(receiver)
                                             .putAmountCurrency(senderAmountCurrency)
@@ -86,7 +88,8 @@ public final class SendMoney {
         senderAccount.getAccountTransactions().add(senderTransaction);
 
         String receiverAmountCurrency = receivedAmount + " " + receiverCurrency;
-        Transaction receiverTransaction = new Transaction.Builder(5, timestamp, description)
+        Transaction receiverTransaction = new Transaction.Builder(Constants.TRANSFER, timestamp,
+                                               description)
                                               .putSenderIBAN(account)
                                               .putReceiverIBAN(receiver)
                                               .putAmountCurrency(receiverAmountCurrency)

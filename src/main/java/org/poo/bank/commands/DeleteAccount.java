@@ -2,6 +2,7 @@ package org.poo.bank.commands;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Constants;
 import org.poo.bank.Output;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
@@ -51,7 +52,7 @@ public final class DeleteAccount {
         if (selectedAccount.getBalance() != 0) {
             Output.deleteAccountError(timestamp, output);
 
-            Transaction transaction = new Transaction.Builder(1, timestamp,
+            Transaction transaction = new Transaction.Builder(Constants.STANDARD, timestamp,
                     "Account couldn't be deleted - there are funds remaining").build();
             selectedUser.getTransactions().add(transaction);
             selectedAccount.getAccountTransactions().add(transaction);

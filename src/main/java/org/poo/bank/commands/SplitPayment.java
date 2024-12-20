@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Constants;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
 import org.poo.bank.account.Account;
@@ -59,7 +60,7 @@ public final class SplitPayment {
             }
 
             if (selectedAccount.getBalance() <= convertedAmount) {
-                Transaction transaction = new Transaction.Builder(6, timestamp,
+                Transaction transaction = new Transaction.Builder(Constants.SPLIT, timestamp,
                         "Split payment of " + String.format("%.2f", amount) + " " + currency)
                         .putError("Account " + account
                                 + " has insufficient funds for a split payment.")
@@ -77,7 +78,7 @@ public final class SplitPayment {
             convertedAmounts.addFirst(convertedAmount);
         }
 
-        Transaction transaction = new Transaction.Builder(6, timestamp,
+        Transaction transaction = new Transaction.Builder(Constants.SPLIT, timestamp,
                 "Split payment of " + String.format("%.2f", amount) + " " + currency)
                 .putCurrency(currency)
                 .putAmount(splitAmount)

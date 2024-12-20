@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Constants;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
 import org.poo.bank.account.Account;
@@ -51,7 +52,7 @@ public final class AddAccount {
         accountMap.put(iban, createdAccount);
 
         // Adding specific transaction
-        Transaction transaction = new Transaction.Builder(1, timestamp,
+        Transaction transaction = new Transaction.Builder(Constants.STANDARD, timestamp,
                 "New account created").build();
         selectedUser.getTransactions().add(transaction);
         createdAccount.getAccountTransactions().add(transaction);

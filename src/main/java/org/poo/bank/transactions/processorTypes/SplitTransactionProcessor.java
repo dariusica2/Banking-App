@@ -6,8 +6,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.transactions.TransactionProcessor;
 
-public class SplitTransactionProcessor implements TransactionProcessor {
-    public ObjectNode process(Transaction transaction, ObjectMapper mapper) {
+public final class SplitTransactionProcessor implements TransactionProcessor {
+    /*
+     *
+     * */
+    public ObjectNode process(final Transaction transaction, final ObjectMapper mapper) {
         ObjectNode transactionNode = mapper.createObjectNode();
         transactionNode.put("amount", transaction.getAmount());
         transactionNode.put("currency", transaction.getCurrency());

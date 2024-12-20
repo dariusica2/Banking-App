@@ -16,8 +16,11 @@ public final class Output {
     private Output() {
     }
 
-    public static void printUsers(LinkedHashMap<String, User> userMap, ObjectMapper mapper,
-                                  ArrayNode outputNode) {
+    /*
+     *
+     * */
+    public static void printUsers(final LinkedHashMap<String, User> userMap,
+                                  final ObjectMapper mapper, final ArrayNode outputNode) {
         for (Map.Entry<String, User> mapElement : userMap.entrySet()) {
             User user = mapElement.getValue();
             ObjectNode userNode = mapper.createObjectNode();
@@ -33,8 +36,11 @@ public final class Output {
         }
     }
 
-    public static void printAccounts(User user, ObjectMapper mapper,
-                                     ArrayNode accountsNode) {
+    /*
+     *
+     * */
+    public static void printAccounts(final User user,
+                                     final ObjectMapper mapper, ArrayNode accountsNode) {
         for (Account account : user.getAccounts()) {
             ObjectNode accountNode = mapper.createObjectNode();
             accountNode.put("IBAN", account.getIban());
@@ -51,8 +57,11 @@ public final class Output {
 
     }
 
-    public static void printCards(Account account, ObjectMapper mapper,
-                                  ArrayNode cardsNode) {
+    /*
+    *
+    * */
+    public static void printCards(final Account account,
+                                  final ObjectMapper mapper, final ArrayNode cardsNode) {
         for (Card card : account.getCards()) {
             ObjectNode cardNode = mapper.createObjectNode();
             cardNode.put("cardNumber", card.getCardNumber());
@@ -64,7 +73,7 @@ public final class Output {
     /**
      *
      */
-    public static void descriptionNode(String description,
+    public static void descriptionNode(final String description,
                                     final int timestamp, final ObjectNode menuNode) {
         ObjectMapper mapper = new ObjectMapper();
 

@@ -1,6 +1,7 @@
 package org.poo.bank.commands;
 
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Constants;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
 import org.poo.bank.account.Account;
@@ -57,7 +58,7 @@ public final class CreateCard {
 
         String userEmail = selectedUser.getEmail();
         // Adding specific transaction
-        Transaction transaction = new Transaction.Builder(2, timestamp,
+        Transaction transaction = new Transaction.Builder(Constants.CARD, timestamp,
                 "New card created")
                 .putCard(cardNumber)
                 .putCardHolder(userEmail)

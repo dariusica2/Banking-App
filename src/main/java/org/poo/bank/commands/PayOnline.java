@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.BankDataBase;
+import org.poo.bank.Constants;
 import org.poo.bank.Output;
 import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
@@ -63,7 +64,7 @@ public final class PayOnline {
 
         // If card is frozen
         if (selectedCard.getStatus().equals("frozen")) {
-            Transaction transaction = new Transaction.Builder(1, timestamp,
+            Transaction transaction = new Transaction.Builder(Constants.STANDARD, timestamp,
                     "The card is frozen").build();
             selectedUser.getTransactions().add(transaction);
             return;
@@ -84,14 +85,15 @@ public final class PayOnline {
 
         // If balance would go below zero
         if (decreaseAmount > selectedAccount.getBalance()) {
-            Transaction transaction = new Transaction.Builder(1, timestamp,
+            Transaction transaction = new Transaction.Builder(Constants.STANDARD, timestamp,
                     "Insufficient funds").build();
             selectedUser.getTransactions().add(transaction);
             selectedAccount.getAccountTransactions().add(transaction);
             return;
         }
 
-        Transaction transaction = new Transaction.Builder(4, timestamp, "Card payment")
+        Transaction transaction = new Transaction.Builder(Constants.PAYMENT, timestamp,
+                "Card payment")
                 .putAmount(decreaseAmount)
                 .putCommerciant(commerciant).build();
 

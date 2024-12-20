@@ -18,7 +18,8 @@ public final class OneTimeCard extends Card {
     public void pay(final double amount, final BankDataBase bankDataBase, int timestamp) {
         getParentAccount().decreaseBalance(amount);
         DeleteCard.execute(bankDataBase, getCardNumber(), timestamp);
-        CreateCard.execute(bankDataBase, getParentAccount().getIban(), getParentAccount().getParentUser().getEmail(),
+        CreateCard.execute(bankDataBase, getParentAccount().getIban(),
+                getParentAccount().getParentUser().getEmail(),
                 timestamp, "oneTime");
     }
 
