@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.BankDataBase;
 import org.poo.bank.Output;
-import org.poo.bank.Transaction;
+import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
 import org.poo.bank.account.Account;
 import org.poo.bank.card.Card;
@@ -55,7 +55,7 @@ public final class PayOnline {
             ObjectNode menuNode = mapper.createObjectNode();
 
             menuNode.put("command", "payOnline");
-            Output.cardNotFound(timestamp, menuNode);
+            Output.descriptionNode("Card not found", timestamp, menuNode);
 
             output.add(menuNode);
             return;

@@ -4,13 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.BankDataBase;
-import org.poo.bank.CommerciantInfo;
 import org.poo.bank.Output;
-import org.poo.bank.Transaction;
 import org.poo.bank.account.Account;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 
 public final class SpendingsReport {
@@ -43,7 +39,7 @@ public final class SpendingsReport {
             ObjectNode menuNode = mapper.createObjectNode();
 
             menuNode.put("command", "spendingsReport");
-            Output.accountNotFound(timestamp, menuNode);
+            Output.descriptionNode("Account not found", timestamp, menuNode);
 
             output.add(menuNode);
             return;

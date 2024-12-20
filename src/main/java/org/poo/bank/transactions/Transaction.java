@@ -1,4 +1,4 @@
-package org.poo.bank;
+package org.poo.bank.transactions;
 
 import lombok.Data;
 

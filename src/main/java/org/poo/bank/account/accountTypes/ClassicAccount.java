@@ -4,9 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.poo.bank.CommerciantInfo;
-import org.poo.bank.Transaction;
+import org.poo.bank.Output;
+import org.poo.bank.transactions.Transaction;
 import org.poo.bank.account.Account;
 import org.poo.bank.account.AccountInfo;
+import org.poo.bank.transactions.TransactionProcessor;
+import org.poo.bank.transactions.TransactionProcessorFactory;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -26,11 +29,7 @@ public final class ClassicAccount extends Account {
 
         menuNode.put("command", "addInterest");
 
-        ObjectNode outputNode = mapper.createObjectNode();
-        outputNode.put("description", "This is not a savings account");
-        outputNode.put("timestamp", timestamp);
-        menuNode.set("output", outputNode);
-        menuNode.put("timestamp", timestamp);
+        Output.descriptionNode("This is not a savings account", timestamp, menuNode);
 
         output.add(menuNode);
     }
@@ -70,11 +69,10 @@ public final class ClassicAccount extends Account {
             if (startTimestamp <= transaction.getTimestamp()
                     && transaction.getTimestamp() <= endTimestamp
                     && transaction.getTransactionType() == 4) {
-                ObjectNode transactionNode = mapper.createObjectNode();
-                transactionNode.put("amount", transaction.getAmount());
-                transactionNode.put("commerciant", transaction.getCommerciant());
-                transactionNode.put("description", transaction.getDescription());
-                transactionNode.put("timestamp", transaction.getTimestamp());
+                TransactionProcessor processor = TransactionProcessorFactory
+                        .generateProcessor(4);
+
+                ObjectNode transactionNode = processor.process(transaction, mapper);
 
                 transactionsNode.add(transactionNode);
 

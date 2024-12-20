@@ -30,7 +30,6 @@ public final class SetMinimumBalance {
             return;
         }
 
-        // Increase moneys
         selectedAccount.setMinBalance(amount);
     }
 }

@@ -97,29 +97,19 @@ public final class BankDataBase {
         for (CommandInput commandInput : commands) {
             String command = commandInput.getCommand();
 
-            // addAccount
             String email = commandInput.getEmail();
             String currency = commandInput.getCurrency();
             String accountType = commandInput.getAccountType();
-            // createCard
             String account = commandInput.getAccount();
-            // addFunds
             double amount = commandInput.getAmount();
-            // deleteCard
             String cardNumber = commandInput.getCardNumber();
-            // payOnline
             String description = commandInput.getDescription();
             String commerciant = commandInput.getCommerciant();
-            // sendMoney
             String receiver = commandInput.getReceiver();
-            // splitPayment
             List<String> accounts = commandInput.getAccounts();
-            // report
             int startTimestamp = commandInput.getStartTimestamp();
             int endTimestamp = commandInput.getEndTimestamp();
-            // changeInterestRate
             double interestRate = commandInput.getInterestRate();
-            // setAlias
             String alias = commandInput.getAlias();
 
             int timestamp = commandInput.getTimestamp();

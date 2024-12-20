@@ -2,7 +2,7 @@ package org.poo.bank.account;
 
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import lombok.Data;
-import org.poo.bank.Transaction;
+import org.poo.bank.transactions.Transaction;
 import org.poo.bank.User;
 import org.poo.bank.card.Card;
 

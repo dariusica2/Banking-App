@@ -2,6 +2,7 @@ package org.poo.bank;
 
 import lombok.Data;
 import org.poo.bank.account.Account;
+import org.poo.bank.transactions.Transaction;
 import org.poo.fileio.UserInput;
 
 import java.util.ArrayList;

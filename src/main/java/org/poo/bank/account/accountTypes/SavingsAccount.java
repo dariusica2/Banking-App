@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.Data;
-import org.poo.bank.Transaction;
+import org.poo.bank.transactions.Transaction;
 import org.poo.bank.account.Account;
 import org.poo.bank.account.AccountInfo;
 
