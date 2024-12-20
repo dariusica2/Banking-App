@@ -58,6 +58,7 @@ public final class SendMoney {
             Transaction transaction = new Transaction.Builder(1, timestamp,
                     "Insufficient funds").build();
             senderUser.getTransactions().add(transaction);
+            senderAccount.getAccountTransactions().add(transaction);
             return;
         }
 

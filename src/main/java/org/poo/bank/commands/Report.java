@@ -62,7 +62,7 @@ public final class Report {
 
         ArrayNode transactionsNode = mapper.createArrayNode();
 
-        ArrayList<Transaction> transactions = parentUser.getTransactions();
+        ArrayList<Transaction> transactions = selectedAccount.getAccountTransactions();
 
         for (Transaction transaction : transactions) {
             if (startTimestamp <= transaction.getTimestamp()

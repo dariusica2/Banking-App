@@ -37,13 +37,13 @@ public final class DeleteCard {
         cardMap.remove(cardNumber);
 
         // Removing from user's card list
-        Account parentAccount = selectedCard.getParentAccount();
-        parentAccount.getCards().remove(selectedCard);
+        Account selectedAccount = selectedCard.getParentAccount();
+        selectedAccount.getCards().remove(selectedCard);
 
-        User selectedUser = parentAccount.getParentUser();
+        User selectedUser = selectedAccount.getParentUser();
 
         String userEmail = selectedUser.getEmail();
-        String userAccount = parentAccount.getIban();
+        String userAccount = selectedAccount.getIban();
         // Adding specific transaction
         Transaction transaction = new Transaction.Builder(3, timestamp,
                 "The card has been destroyed")
@@ -51,6 +51,6 @@ public final class DeleteCard {
                 .putCardHolder(userEmail)
                 .putAccount(userAccount).build();
         selectedUser.getTransactions().add(transaction);
-        parentAccount.getAccountTransactions().add(transaction);
+        selectedAccount.getAccountTransactions().add(transaction);
     }
 }

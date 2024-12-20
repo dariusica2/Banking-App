@@ -25,9 +25,12 @@ public final class ChangeInterestRate {
                                final int timestamp, final ArrayNode output) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
+        // Checking if account exists
         Account selectedAccount = accountMap.get(account);
+        if (selectedAccount == null) {
+            return;
+        }
 
         selectedAccount.changeInterestRate(newInterestRate, timestamp, output);
-
     }
 }

@@ -1,7 +1,10 @@
 package org.poo.bank.card.cardTypes;
 
+import org.poo.bank.BankDataBase;
 import org.poo.bank.card.Card;
 import org.poo.bank.card.CardInfo;
+import org.poo.bank.commands.CreateCard;
+import org.poo.bank.commands.DeleteCard;
 import org.poo.utils.Utils;
 
 public final class OneTimeCard extends Card {
@@ -12,9 +15,11 @@ public final class OneTimeCard extends Card {
     /**
      *
      */
-    public void pay(final double amount) {
+    public void pay(final double amount, final BankDataBase bankDataBase, int timestamp) {
         getParentAccount().decreaseBalance(amount);
-        resetCardNumber();
+        DeleteCard.execute(bankDataBase, getCardNumber(), timestamp);
+        CreateCard.execute(bankDataBase, getParentAccount().getIban(), getParentAccount().getParentUser().getEmail(),
+                timestamp, "oneTime");
     }
 
     /**

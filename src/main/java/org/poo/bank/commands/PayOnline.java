@@ -87,13 +87,9 @@ public final class PayOnline {
             Transaction transaction = new Transaction.Builder(1, timestamp,
                     "Insufficient funds").build();
             selectedUser.getTransactions().add(transaction);
+            selectedAccount.getAccountTransactions().add(transaction);
             return;
         }
-
-        // Decreasing moneys
-        String cardNumberBeforePay = selectedCard.getCardNumber();
-        selectedCard.pay(decreaseAmount);
-        selectedCard.checkCardNumber(cardNumberBeforePay, cardMap);
 
         Transaction transaction = new Transaction.Builder(4, timestamp, "Card payment")
                 .putAmount(decreaseAmount)
@@ -101,5 +97,8 @@ public final class PayOnline {
 
         selectedUser.getTransactions().add(transaction);
         selectedAccount.getAccountTransactions().add(transaction);
+
+        // Decreasing moneys
+        selectedCard.pay(decreaseAmount, bankDataBase, timestamp);
     }
 }

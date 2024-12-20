@@ -24,6 +24,7 @@ public final class AddInterest {
                                final int timestamp, final ArrayNode output) {
         HashMap<String, Account> accountMap = bankDataBase.getAccountMap();
 
+        // Checking if account exists
         Account selectedAccount = accountMap.get(account);
         if (selectedAccount == null) {
             return;

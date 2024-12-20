@@ -1,6 +1,7 @@
 package org.poo.bank.card;
 
 import lombok.Data;
+import org.poo.bank.BankDataBase;
 import org.poo.bank.account.Account;
 
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public abstract class Card {
     /**
      * Changes based on card type
      */
-    public abstract void pay(double amount);
+    public abstract void pay(double amount, final BankDataBase bankDataBase, int timestamp);
 
     /**
      * Checks if the card is still associated with the same cardNumber. If not, it replaces

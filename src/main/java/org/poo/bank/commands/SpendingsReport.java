@@ -49,68 +49,6 @@ public final class SpendingsReport {
             return;
         }
 
-        ObjectMapper mapper = new ObjectMapper();
-
-        ObjectNode menuNode = mapper.createObjectNode();
-        menuNode.put("command", "spendingsReport");
-
-        ArrayNode transactionsNode = mapper.createArrayNode();
-
-        ArrayList<Transaction> transactions = selectedAccount.getAccountTransactions();
-        HashMap<String, CommerciantInfo> commerciantMap = new HashMap<String, CommerciantInfo>();
-        for (Transaction transaction : transactions) {
-            if (startTimestamp <= transaction.getTimestamp()
-                    && transaction.getTimestamp() <= endTimestamp
-                    && transaction.getTransactionType() == 4) {
-                ObjectNode transactionNode = mapper.createObjectNode();
-                transactionNode.put("amount", transaction.getAmount());
-                transactionNode.put("commerciant", transaction.getCommerciant());
-                transactionNode.put("description", transaction.getDescription());
-                transactionNode.put("timestamp", transaction.getTimestamp());
-
-                transactionsNode.add(transactionNode);
-
-                String commerciantName = transaction.getCommerciant();
-
-                if (!commerciantMap.containsKey(commerciantName)) {
-                    commerciantMap.put(commerciantName,
-                            new CommerciantInfo(commerciantName, transaction.getAmount()));
-                } else {
-                    commerciantMap.get(commerciantName).increaseAmount(transaction.getAmount());
-                }
-            }
-        }
-
-        ArrayList<CommerciantInfo> commerciantList
-                = new ArrayList<CommerciantInfo>(commerciantMap.size());
-        commerciantList.addAll(commerciantMap.values());
-        commerciantList.sort(Comparator.comparing(CommerciantInfo::getCommerciant));
-
-        ArrayNode commerciantsNode = mapper.createArrayNode();
-        for (CommerciantInfo commerciantInfo : commerciantList) {
-            ObjectNode commerciantNode = mapper.createObjectNode();
-            commerciantNode.put("commerciant", commerciantInfo.getCommerciant());
-            commerciantNode.put("total", commerciantInfo.getAmount());
-            commerciantsNode.add(commerciantNode);
-        }
-
-        ObjectNode outputNode = mapper.createObjectNode();
-
-        outputNode.put("balance", selectedAccount.getBalance());
-
-        // Commerciants
-
-        outputNode.set("commerciants", commerciantsNode);
-
-        outputNode.put("currency", selectedAccount.getCurrency());
-        outputNode.put("IBAN", selectedAccount.getIban());
-
-        outputNode.set("transactions", transactionsNode);
-
-        menuNode.set("output", outputNode);
-
-        menuNode.put("timestamp", timestamp);
-
-        output.add(menuNode);
+        selectedAccount.spendingsReport(startTimestamp, endTimestamp, timestamp, output);
     }
 }

@@ -29,15 +29,21 @@ public abstract class Account {
     }
 
     /**
-     * Changes based on card type
+     * Changes based on account type
      */
     public abstract void addInterest(int timestamp, ArrayNode output);
 
     /**
-     * Changes based on card type
+     * Changes based on account type
      */
     public abstract void changeInterestRate(double newInterestRate,
                                             int timestamp, ArrayNode output);
+
+    /**
+     * Changes based on account type
+     */
+    public abstract void spendingsReport(int startTimestamp, int endTimestamp,
+                                         int timestamp, ArrayNode output);
 
     /**
      *

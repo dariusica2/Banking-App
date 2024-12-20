@@ -68,9 +68,9 @@ public final class SplitPayment {
                         .putInvolvedAccounts(accounts).build();
 
                 for (String involvedAccount : accounts) {
+                    accountMap.get(involvedAccount).getAccountTransactions().add(transaction);
                     User parentUser = accountMap.get(involvedAccount).getParentUser();
                     parentUser.getTransactions().add(transaction);
-                    accountMap.get(involvedAccount).getAccountTransactions().add(transaction);
                 }
                 return;
             }

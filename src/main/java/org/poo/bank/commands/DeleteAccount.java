@@ -50,6 +50,7 @@ public final class DeleteAccount {
         // Checking requirement
         if (selectedAccount.getBalance() != 0) {
             Output.deleteAccountError(timestamp, output);
+
             Transaction transaction = new Transaction.Builder(1, timestamp,
                     "Account couldn't be deleted - there are funds remaining").build();
             selectedUser.getTransactions().add(transaction);

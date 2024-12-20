@@ -51,6 +51,7 @@ public final class CheckCardStatus {
 
         Account parentAccount = selectedCard.getParentAccount();
         User parentUser = parentAccount.getParentUser();
+
         if (parentAccount.getBalance() <= parentAccount.getMinBalance()) {
             selectedCard.setStatus("frozen");
             Transaction transaction = new Transaction.Builder(1, timestamp,
