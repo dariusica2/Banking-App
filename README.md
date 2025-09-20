@@ -5,7 +5,7 @@
 
 ## Project Structure
 
-* org/poo/
+* src/main/java/org/poo/
     * fileio/ - contains classes used to read data from the input json files
     * utils/ - contains Utils class with methods for generating IBANs and card numbers
     * bank/ - contains all classes and packages pertaining to the assignment
